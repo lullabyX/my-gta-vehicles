@@ -1,5 +1,7 @@
 import Header from "./components/layout/Header";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import AuthContext from "./store/auth-context";
 import { useContext } from "react";
 
@@ -17,7 +19,19 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <Header />
-      {!authCtx.isSignedIn && authCtx.FirebaseUI}
+
+      {!authCtx.isSignedIn && (
+        <Card
+          sx={{
+            maxWidth: 350,
+            backgroundColor: "white",
+            margin: "auto",
+            marginTop: "12.5%",
+          }}
+        >
+          <CardContent>{authCtx.FirebaseUI}</CardContent>
+        </Card>
+      )}
     </ThemeProvider>
   );
 }
