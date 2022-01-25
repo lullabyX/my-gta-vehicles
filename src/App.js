@@ -1,5 +1,7 @@
 import Header from "./components/layout/Header";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import AuthContext from "./store/auth-context";
+import { useContext } from "react";
 
 const darkTheme = createTheme({
   palette: {
@@ -11,9 +13,11 @@ const darkTheme = createTheme({
 });
 
 function App() {
+  const authCtx = useContext(AuthContext);
   return (
     <ThemeProvider theme={darkTheme}>
       <Header />
+      {!authCtx.isSignedIn && authCtx.FirebaseUI}
     </ThemeProvider>
   );
 }
