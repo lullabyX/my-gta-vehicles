@@ -12,12 +12,14 @@ const VehicleForm = (props) => {
 
   const vehicleNameInput = useInput((value) => value !== "");
   const vehicleStorageInput = useInput((value) => value !== "");
-  const vehicleCommentInput = useInput(() => {});
+  const vehicleCommentInput = useInput((value) => true);
 
   const isFormValid =
     vehicleNameInput.isInputValid &&
     vehicleStorageInput.isInputValid &&
     vehicleCommentInput.isInputValid;
+
+  console.log(isFormValid);
 
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
@@ -32,7 +34,14 @@ const VehicleForm = (props) => {
     if (!isFormValid) {
       return;
     }
-
+    const vehicleDetail = {
+      name: vehicleNameInput.value,
+      storage: vehicleStorageInput.value,
+      category: category,
+      type: type,
+      comment: vehicleCommentInput.value,
+    };
+    props.onAddVehicle(vehicleDetail);
     console.log("event triggered");
   };
 

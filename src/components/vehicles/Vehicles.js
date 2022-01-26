@@ -1,11 +1,16 @@
 import { Add } from "@mui/icons-material";
 import { Button, Card } from "@mui/material";
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import VehicleTable from "./VehicleTable";
 import VehicleModal from "./VehicleModal";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import axios from "axios";
+import AuthContext from "../../store/auth-context";
 
 const Vehicles = (props) => {
+  const authCtx = useContext(AuthContext);
+
+  console.log(authCtx);
   const [openVehicleModal, setOpenVehicleModal] = useState(false);
   const [edit, setEdit] = useState(false);
   const [commentContent, setCommentContent] = useState(<></>);
@@ -18,6 +23,22 @@ const Vehicles = (props) => {
     type: "",
     comment: "",
   });
+
+  const addVehicleHandler = async (vehicleData) => {
+    console.log(authCtx);
+    try {
+      const response = await axios(
+        `https://gta-owned-vehicles-default-rtdb.firebaseio.com/users/${authCtx.uid}.json?auth=${authCtx.token}`,
+        {
+          method: "POST",
+          data: vehicleData,
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleOpen = () => setOpenVehicleModal(true);
   const handleClose = () => {
@@ -92,6 +113,7 @@ const Vehicles = (props) => {
         onClose={handleClose}
         editMode={edit}
         editDetails={editDetails}
+        onAddVehicle={addVehicleHandler}
       />
     </Fragment>
   );

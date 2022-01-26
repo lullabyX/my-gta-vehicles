@@ -35,18 +35,23 @@ const defaultState = {
   isSignedIn: false,
   signout: () => {},
   username: "",
+  uid: "",
   FirebaseUI: (
     <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
   ),
+  token: "",
 };
 
 const authReducer = (state, action) => {
   if (action.type === true) {
+    console.log(action.user.auth.currentUser.accessToken);
     return {
       isSignedIn: true,
       signout: state.signout,
-      username: action.value().currentUser.displayName,
+      username: action.user.displayName,
+      uid: action.user.uid,
       FirebaseUI: <></>,
+      token: action.user.auth.currentUser.accessToken,
     };
   }
   return defaultState;
@@ -60,8 +65,12 @@ const AuthProvider = (props) => {
     const unregisterAuthObserver = firebase
       .auth()
       .onAuthStateChanged((user) => {
+        console.log(user);
         // setIsSignedIn(!!user);
-        dispatch({ type: !!user, value: firebase.auth });
+        dispatch({
+          type: !!user,
+          user: user,
+        });
       });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
   }, []);
@@ -78,6 +87,8 @@ const AuthProvider = (props) => {
         signout: signout,
         username: state.username,
         FirebaseUI: state.FirebaseUI,
+        uid: state.uid,
+        token: state.token,
       }}
     >
       {props.children}
