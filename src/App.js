@@ -3,8 +3,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import AuthContext from "./store/auth-context";
-import { useContext } from "react";
-import VehicleTable from "./components/vehicles/VehicleTable";
+import { Fragment, useContext } from "react";
 import Vehicles from "./components/vehicles/Vehicles";
 
 const darkTheme = createTheme({
@@ -37,11 +36,13 @@ function App() {
   );
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <Header />
-      {!authCtx.isSignedIn && authContent}
+    <Fragment>
+      <ThemeProvider theme={darkTheme}>
+        <Header />
+        {!authCtx.isSignedIn && authContent}
+      </ThemeProvider>
       {authCtx.isSignedIn && <Vehicles />}
-    </ThemeProvider>
+    </Fragment>
   );
 }
 
