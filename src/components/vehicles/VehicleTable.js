@@ -1,6 +1,7 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Card } from "@mui/material";
+import { getTypeIcon } from "./VehicleCategories";
 
 const columns = [
   { field: "name", headerName: "Name", width: 200 },
@@ -14,6 +15,7 @@ const columns = [
     field: "type",
     headerName: "Type",
     width: 90,
+    renderCell: (params) => getTypeIcon(params.formattedValue),
   },
 ];
 
@@ -23,56 +25,56 @@ const rows = [
     name: "Kuruma(Armored)",
     storage: "Arcade",
     category: "Sports",
-    type: "Ground",
+    type: "Air",
   },
   {
-    id: "m1",
+    id: "m2",
+    name: "Kuruma(Armored)",
+    storage: "Arcade",
+    category: "Sports",
+    type: "Water",
+  },
+  {
+    id: "m3",
     name: "Kuruma(Armored)",
     storage: "Arcade",
     category: "Sports",
     type: "Ground",
   },
   {
-    id: "m1",
+    id: "m4",
     name: "Kuruma(Armored)",
     storage: "Arcade",
     category: "Sports",
     type: "Ground",
   },
   {
-    id: "m1",
+    id: "m5",
     name: "Kuruma(Armored)",
     storage: "Arcade",
     category: "Sports",
     type: "Ground",
   },
   {
-    id: "m1",
+    id: "m6",
     name: "Kuruma(Armored)",
     storage: "Arcade",
     category: "Sports",
     type: "Ground",
   },
   {
-    id: "m1",
+    id: "m7",
     name: "Kuruma(Armored)",
     storage: "Arcade",
     category: "Sports",
     type: "Ground",
   },
   {
-    id: "m1",
+    id: "m8",
     name: "Kuruma(Armored)",
     storage: "Arcade",
     category: "Sports",
-    type: "Ground",
-  },
-  {
-    id: "m1",
-    name: "Kuruma(Armored)",
-    storage: "Arcade",
-    category: "Sports",
-    type: "Ground",
+    type: "GroundAndWaterAndAir",
   },
 ];
 

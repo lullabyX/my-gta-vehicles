@@ -152,3 +152,8 @@ export const vehicleTypes = [
     ),
   },
 ];
+
+export const getTypeIcon = (typeValue) => {
+  const type = vehicleTypes.filter((item) => item.value === typeValue);
+  return type[0].label;
+};
