@@ -9,7 +9,7 @@ const columns = [
   {
     field: "category",
     headerName: "Category",
-    width: 90,
+    width: 102,
   },
   {
     field: "type",
@@ -24,65 +24,78 @@ const rows = [
     id: "m1",
     name: "Kuruma(Armored)",
     storage: "Arcade",
-    category: "Sports",
+    category: "Sports Car",
     type: "Air",
   },
   {
     id: "m2",
     name: "Kuruma(Armored)",
     storage: "Arcade",
-    category: "Sports",
+    category: "Sports Car",
     type: "Water",
   },
   {
     id: "m3",
     name: "Kuruma(Armored)",
     storage: "Arcade",
-    category: "Sports",
+    category: "Sports Car",
     type: "Ground",
   },
   {
     id: "m4",
     name: "Kuruma(Armored)",
     storage: "Arcade",
-    category: "Sports",
+    category: "Sports Car",
     type: "Ground",
   },
   {
     id: "m5",
     name: "Kuruma(Armored)",
     storage: "Arcade",
-    category: "Sports",
+    category: "Sports Car",
     type: "Ground",
   },
   {
     id: "m6",
     name: "Kuruma(Armored)",
     storage: "Arcade",
-    category: "Sports",
+    category: "Sports Car",
     type: "Ground",
+    comment: "",
   },
   {
     id: "m7",
     name: "Kuruma(Armored)",
     storage: "Arcade",
-    category: "Sports",
+    category: "Sports Classic",
     type: "Ground",
+    comment: "npc cannot destroy",
   },
   {
     id: "m8",
     name: "Kuruma(Armored)",
     storage: "Arcade",
-    category: "Sports",
+    category: "Sports Car",
     type: "GroundAndWaterAndAir",
+    comment: "dummy comment 1",
   },
 ];
 
-export default function VehicleTable() {
+export default function VehicleTable(props) {
+  const rowDoubleClickHandler = (params) => {
+    console.log(params);
+    props.onEdit(params.row);
+  };
+
+  const rowSingleClickHandler = (params) => {
+    console.log(params);
+    props.onRowSingleClick(params.row.comment);
+  };
+
   return (
     <Card
       sx={{
-        height: 550,
+        height: 450,
         maxWidth: 500,
         margin: "auto",
         marginTop: "2%",
@@ -97,6 +110,8 @@ export default function VehicleTable() {
         columns={columns}
         density="compact"
         editMode="row"
+        onRowDoubleClick={rowDoubleClickHandler}
+        onRowClick={rowSingleClickHandler}
       />
     </Card>
   );

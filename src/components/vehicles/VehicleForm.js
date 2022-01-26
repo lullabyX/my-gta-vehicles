@@ -1,12 +1,23 @@
-import { Add, CloseRounded } from "@mui/icons-material";
+import { Add, CloseRounded, UpgradeOutlined } from "@mui/icons-material";
 import { Button, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
 import { vehicleCategoris, vehicleTypes } from "./VehicleCategories";
+import useInput from "../../hooks/use-input";
 
 const VehicleForm = (props) => {
+  const { editMode, editDetails } = props;
   const [category, setCategory] = React.useState("");
   const [type, setType] = React.useState("");
+
+  const vehicleNameInput = useInput((value) => value !== "");
+  const vehicleStorageInput = useInput((value) => value !== "");
+  const vehicleCommentInput = useInput(() => {});
+
+  const isFormValid =
+    vehicleNameInput.isInputValid &&
+    vehicleStorageInput.isInputValid &&
+    vehicleCommentInput.isInputValid;
 
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
@@ -18,8 +29,23 @@ const VehicleForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    if (!isFormValid) {
+      return;
+    }
+
     console.log("event triggered");
   };
+
+  useEffect(() => {
+    console.log(editDetails);
+    if (editMode) {
+      vehicleNameInput.setValue(editDetails.name);
+      vehicleStorageInput.setValue(editDetails.storage);
+      vehicleCommentInput.setValue(editDetails.comment);
+      setCategory(editDetails.category);
+      setType(editDetails.type);
+    }
+  }, [editMode]);
 
   return (
     <form onSubmit={submitHandler}>
@@ -31,15 +57,31 @@ const VehicleForm = (props) => {
       >
         <div>
           <TextField
+            error={vehicleNameInput.hasError}
             id="outlined-basic"
             label="Vehicle Name"
             variant="outlined"
+            onChange={vehicleNameInput.changeHandler}
+            onBlur={vehicleNameInput.touchHandler}
+            value={vehicleNameInput.value}
+            helperText={
+              vehicleNameInput.hasError ? "Vehicle name cannot be empty" : ""
+            }
             required
           />
           <TextField
+            error={vehicleStorageInput.hasError}
             id="outlined-basic"
             label="Storage"
             variant="outlined"
+            onChange={vehicleStorageInput.changeHandler}
+            onBlur={vehicleStorageInput.touchHandler}
+            value={vehicleStorageInput.value}
+            helperText={
+              vehicleStorageInput.hasError
+                ? "Vehicle storage cannot be empty"
+                : ""
+            }
             required
           />
         </div>
@@ -81,6 +123,9 @@ const VehicleForm = (props) => {
           <TextField
             id="outlined-multiline-flexible"
             label="Comment"
+            onChange={vehicleCommentInput.changeHandler}
+            onBlur={vehicleCommentInput.touchHandler}
+            value={vehicleCommentInput.value}
             multiline
             maxRows={5}
           />
@@ -109,11 +154,11 @@ const VehicleForm = (props) => {
             color: "#eee",
             border: "1px solid black",
           }}
-          startIcon={<Add />}
+          startIcon={editMode ? <UpgradeOutlined /> : <Add />}
           color="secondary"
           type="submit"
         >
-          Add
+          {editMode ? "Update" : "Add"}
         </Button>
       </div>
     </form>

@@ -34,7 +34,11 @@ const VehicleModal = (props) => {
     >
       <Fade in={props.open}>
         <Box sx={style}>
-          <VehicleForm onClose={props.onClose} />
+          <VehicleForm
+            onClose={props.onClose}
+            editMode={props.editMode}
+            editDetails={props.editDetails}
+          />
         </Box>
       </Fade>
     </Modal>
