@@ -39,6 +39,7 @@ const VehicleModal = (props) => {
             editMode={props.editMode}
             editDetails={props.editDetails}
             onAddVehicle={props.onAddVehicle}
+            onUpdateVehicle={props.onUpdateVehicle}
           />
         </Box>
       </Fade>

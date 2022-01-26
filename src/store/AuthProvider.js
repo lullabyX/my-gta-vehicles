@@ -34,30 +34,24 @@ const uiConfig = {
 const defaultState = {
   isSignedIn: false,
   signout: () => {},
-  username: "",
-  uid: "",
   FirebaseUI: (
     <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
   ),
-  token: "",
+  user: {},
 };
 
 const authReducer = (state, action) => {
   if (action.type === true) {
-    console.log(action.user.auth.currentUser.accessToken);
     return {
       isSignedIn: true,
       signout: state.signout,
-      username: action.user.displayName,
-      uid: action.user.uid,
       FirebaseUI: <></>,
-      token: action.user.auth.currentUser.accessToken,
+      user: action.user,
     };
   }
   return defaultState;
 };
 const AuthProvider = (props) => {
-  // const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
   const [state, dispatch] = useReducer(authReducer, defaultState);
 
   // Listen to the Firebase Auth state and set the local state.
@@ -66,7 +60,6 @@ const AuthProvider = (props) => {
       .auth()
       .onAuthStateChanged((user) => {
         console.log(user);
-        // setIsSignedIn(!!user);
         dispatch({
           type: !!user,
           user: user,
@@ -85,10 +78,8 @@ const AuthProvider = (props) => {
       value={{
         isSignedIn: state.isSignedIn,
         signout: signout,
-        username: state.username,
         FirebaseUI: state.FirebaseUI,
-        uid: state.uid,
-        token: state.token,
+        user: state.user
       }}
     >
       {props.children}

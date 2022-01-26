@@ -1,6 +1,6 @@
 import { Add } from "@mui/icons-material";
 import { Button, Card } from "@mui/material";
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useCallback, useContext, useEffect, useState } from "react";
 import VehicleTable from "./VehicleTable";
 import VehicleModal from "./VehicleModal";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -8,12 +8,11 @@ import axios from "axios";
 import AuthContext from "../../store/auth-context";
 
 const Vehicles = (props) => {
-  const authCtx = useContext(AuthContext);
-
-  console.log(authCtx);
+  const { user } = useContext(AuthContext);
   const [openVehicleModal, setOpenVehicleModal] = useState(false);
   const [edit, setEdit] = useState(false);
   const [commentContent, setCommentContent] = useState(<></>);
+  const [vehiclesData, setVehiclesData] = useState([]);
 
   const [editDetails, setEditDetails] = useState({
     id: "",
@@ -25,10 +24,11 @@ const Vehicles = (props) => {
   });
 
   const addVehicleHandler = async (vehicleData) => {
-    console.log(authCtx);
     try {
       const response = await axios(
-        `https://gta-owned-vehicles-default-rtdb.firebaseio.com/users/${authCtx.uid}.json?auth=${authCtx.token}`,
+        `https://gta-owned-vehicles-default-rtdb.firebaseio.com/users/${
+          user.uid
+        }.json?auth=${await user.getIdToken()}`,
         {
           method: "POST",
           data: vehicleData,
@@ -38,7 +38,48 @@ const Vehicles = (props) => {
     } catch (error) {
       console.log(error);
     }
+    getVehiclesHandler();
   };
+
+  const updateVehicleHandler = async (vehicleData, id) => {
+    try {
+      const response = await axios(
+        `https://gta-owned-vehicles-default-rtdb.firebaseio.com/users/${
+          user.uid
+        }/${id}.json?auth=${await user.getIdToken()}`,
+        {
+          method: "PUT",
+          data: vehicleData,
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    getVehiclesHandler();
+  };
+
+  const getVehiclesHandler = async () => {
+    const vehicles = [];
+    try {
+      const response = await axios(
+        `https://gta-owned-vehicles-default-rtdb.firebaseio.com/users/${
+          user.uid
+        }.json?auth=${await user.getIdToken()}`
+      );
+      console.log(response);
+      for (let key in response.data) {
+        vehicles.push({ ...response.data[key], id: key });
+      }
+      setVehiclesData(vehicles);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getVehiclesHandler();
+  }, []);
 
   const handleOpen = () => setOpenVehicleModal(true);
   const handleClose = () => {
@@ -104,6 +145,7 @@ const Vehicles = (props) => {
         <VehicleTable
           onEdit={vehicleEditHandler}
           onRowSingleClick={commentShowHandler}
+          rows={vehiclesData}
         />
         {commentContent}
       </ThemeProvider>
@@ -114,6 +156,7 @@ const Vehicles = (props) => {
         editMode={edit}
         editDetails={editDetails}
         onAddVehicle={addVehicleHandler}
+        onUpdateVehicle={updateVehicleHandler}
       />
     </Fragment>
   );

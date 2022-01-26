@@ -3,9 +3,8 @@ import React from "react";
 const AuthContext = React.createContext({
   isSignedIn: false,
   signout: () => {},
-  username: "",
-  uid: "",
-  token: ''
+  FirebaseUI: <></>,
+  user: {},
 });
 
 export default AuthContext;

@@ -10,8 +10,8 @@ const VehicleForm = (props) => {
   const [category, setCategory] = React.useState("");
   const [type, setType] = React.useState("");
 
-  const vehicleNameInput = useInput((value) => value !== "");
-  const vehicleStorageInput = useInput((value) => value !== "");
+  const vehicleNameInput = useInput((value) => value.trim() !== "");
+  const vehicleStorageInput = useInput((value) => value.trim() !== "");
   const vehicleCommentInput = useInput((value) => true);
 
   const isFormValid =
@@ -35,14 +35,17 @@ const VehicleForm = (props) => {
       return;
     }
     const vehicleDetail = {
-      name: vehicleNameInput.value,
-      storage: vehicleStorageInput.value,
+      name: vehicleNameInput.value.trim(),
+      storage: vehicleStorageInput.value.trim(),
       category: category,
       type: type,
       comment: vehicleCommentInput.value,
     };
-    props.onAddVehicle(vehicleDetail);
-    console.log("event triggered");
+    if (editMode) {
+      props.onUpdateVehicle(vehicleDetail, editDetails.id);
+    } else {
+      props.onAddVehicle(vehicleDetail);
+    }
   };
 
   useEffect(() => {

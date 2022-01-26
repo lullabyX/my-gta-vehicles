@@ -106,7 +106,7 @@ export default function VehicleTable(props) {
     >
       <DataGrid
         sx={{ color: "white" }}
-        rows={rows}
+        rows={props.rows}
         columns={columns}
         density="compact"
         editMode="row"
