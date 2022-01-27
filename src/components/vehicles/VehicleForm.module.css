@@ -1,0 +1,25 @@
+.container {
+  text-align: left;
+}
+
+.button {
+  text-align: right;
+}
+
+.button-update:hover {
+  background-color: rgb(28, 156, 28);
+  border-color: rgb(0, 83, 0);
+}
+
+@media screen and (max-width: 1058px) {
+  .container {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .button {
+    display: flex;
+    text-align: center;
+  }
+}

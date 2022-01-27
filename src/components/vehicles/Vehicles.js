@@ -14,6 +14,12 @@ const Vehicles = (props) => {
   const [commentContent, setCommentContent] = useState(<></>);
   const [vehiclesData, setVehiclesData] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const [isDeleted, setIsDeleted] = useState(false);
+
   const [editDetails, setEditDetails] = useState({
     id: "",
     name: "",
@@ -23,7 +29,10 @@ const Vehicles = (props) => {
     comment: "",
   });
 
-  const addVehicleHandler = async (vehicleData) => {
+  const addVehicleHandler = async (vehicleData, resetForm) => {
+    setIsLoading(true);
+    setIsError(false);
+    setIsSubmitted(false);
     try {
       const response = await axios(
         `https://gta-owned-vehicles-default-rtdb.firebaseio.com/users/${
@@ -37,11 +46,18 @@ const Vehicles = (props) => {
       console.log(response);
     } catch (error) {
       console.log(error);
+      setIsError(true);
     }
+    setIsLoading(false);
+    setIsSubmitted(true);
     getVehiclesHandler();
+    resetForm();
   };
 
-  const updateVehicleHandler = async (vehicleData, id) => {
+  const updateVehicleHandler = async (vehicleData, id, resetForm) => {
+    setIsLoading(true);
+    setIsError(false);
+    setIsSubmitted(false);
     try {
       const response = await axios(
         `https://gta-owned-vehicles-default-rtdb.firebaseio.com/users/${
@@ -55,8 +71,38 @@ const Vehicles = (props) => {
       console.log(response);
     } catch (error) {
       console.log(error);
+      setIsError(true);
     }
+    setIsLoading(false);
+    setIsSubmitted(true);
     getVehiclesHandler();
+    resetForm();
+  };
+
+  const deleteVehicleHandler = async (id, resetForm) => {
+    setIsLoading(true);
+    setIsError(false);
+    setIsSubmitted(false);
+    console.log(id);
+    try {
+      const response = await axios(
+        `https://gta-owned-vehicles-default-rtdb.firebaseio.com/users/${
+          user.uid
+        }/${id}.json?auth=${await user.getIdToken()}`,
+        {
+          method: "DELETE",
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      setIsError(true);
+    }
+    setIsLoading(false);
+    setIsSubmitted(true);
+    getVehiclesHandler();
+    setIsDeleted(true);
+    resetForm();
   };
 
   const getVehiclesHandler = async () => {
@@ -85,6 +131,10 @@ const Vehicles = (props) => {
   const handleClose = () => {
     setOpenVehicleModal(false);
     setEdit(false);
+    setIsLoading(false);
+    setIsSubmitted(false);
+    setIsError(false);
+    setIsDeleted(false);
   };
 
   const vehicleEditHandler = (vehicleDetails) => {
@@ -157,6 +207,11 @@ const Vehicles = (props) => {
         editDetails={editDetails}
         onAddVehicle={addVehicleHandler}
         onUpdateVehicle={updateVehicleHandler}
+        onDeleteVehicle={deleteVehicleHandler}
+        isLoading={isLoading}
+        isError={isError}
+        isSubmitted={isSubmitted}
+        isDeleted={isDeleted}
       />
     </Fragment>
   );

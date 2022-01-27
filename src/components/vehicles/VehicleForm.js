@@ -1,9 +1,16 @@
-import { Add, CloseRounded, UpgradeOutlined } from "@mui/icons-material";
+import {
+  Add,
+  CloseRounded,
+  DeleteForeverOutlined,
+  UpgradeOutlined,
+} from "@mui/icons-material";
 import { Button, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { vehicleCategoris, vehicleTypes } from "./VehicleCategories";
-import useInput from "../../hooks/use-input";
+import useInput from "../hooks/use-input";
+
+import classes from "./VehicleForm.module.css";
 
 const VehicleForm = (props) => {
   const { editMode, editDetails } = props;
@@ -29,6 +36,14 @@ const VehicleForm = (props) => {
     setType(event.target.value);
   };
 
+  const resetForm = () => {
+    setCategory("");
+    setType("");
+    vehicleNameInput.reset();
+    vehicleStorageInput.reset();
+    vehicleCommentInput.reset();
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
     if (!isFormValid) {
@@ -42,14 +57,13 @@ const VehicleForm = (props) => {
       comment: vehicleCommentInput.value,
     };
     if (editMode) {
-      props.onUpdateVehicle(vehicleDetail, editDetails.id);
+      props.onUpdateVehicle(vehicleDetail, editDetails.id, resetForm);
     } else {
-      props.onAddVehicle(vehicleDetail);
+      props.onAddVehicle(vehicleDetail, resetForm);
     }
   };
 
   useEffect(() => {
-    console.log(editDetails);
     if (editMode) {
       vehicleNameInput.setValue(editDetails.name);
       vehicleStorageInput.setValue(editDetails.storage);
@@ -131,7 +145,7 @@ const VehicleForm = (props) => {
             ))}
           </TextField>
         </div>
-        <div style={{ width: 100 }}>
+        <div className={classes.container}>
           <TextField
             id="outlined-multiline-flexible"
             label="Comment"
@@ -143,7 +157,7 @@ const VehicleForm = (props) => {
           />
         </div>
       </Box>
-      <div style={{ textAlign: "right" }}>
+      <div className={classes.button}>
         <Button
           sx={{
             backgroundColor: "#ccc",
@@ -152,18 +166,36 @@ const VehicleForm = (props) => {
             border: "1px solid black",
             marginRight: ".5rem",
           }}
-          startIcon={<CloseRounded />}
           color="secondary"
           onClick={props.onClose}
         >
-          Close
+          <CloseRounded />
         </Button>
+        {props.editMode && (
+          <Button
+            sx={{
+              backgroundColor: "red",
+              marginTop: "1rem",
+              color: "black",
+              border: "1px solid red",
+              marginRight: ".5rem",
+            }}
+            color="secondary"
+            onClick={props.onDeleteVehicle.bind(
+              "dummy",
+              editDetails.id,
+              resetForm.bind()
+            )}
+          >
+            <DeleteForeverOutlined />
+          </Button>
+        )}
         <Button
           variant="contained"
+          className={classes["button-update"]}
           sx={{
             backgroundColor: "black",
             marginTop: "1rem",
-            color: "#eee",
             border: "1px solid black",
           }}
           startIcon={editMode ? <UpgradeOutlined /> : <Add />}

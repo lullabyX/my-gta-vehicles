@@ -19,68 +19,6 @@ const columns = [
   },
 ];
 
-const rows = [
-  {
-    id: "m1",
-    name: "Kuruma(Armored)",
-    storage: "Arcade",
-    category: "Sports Car",
-    type: "Air",
-  },
-  {
-    id: "m2",
-    name: "Kuruma(Armored)",
-    storage: "Arcade",
-    category: "Sports Car",
-    type: "Water",
-  },
-  {
-    id: "m3",
-    name: "Kuruma(Armored)",
-    storage: "Arcade",
-    category: "Sports Car",
-    type: "Ground",
-  },
-  {
-    id: "m4",
-    name: "Kuruma(Armored)",
-    storage: "Arcade",
-    category: "Sports Car",
-    type: "Ground",
-  },
-  {
-    id: "m5",
-    name: "Kuruma(Armored)",
-    storage: "Arcade",
-    category: "Sports Car",
-    type: "Ground",
-  },
-  {
-    id: "m6",
-    name: "Kuruma(Armored)",
-    storage: "Arcade",
-    category: "Sports Car",
-    type: "Ground",
-    comment: "",
-  },
-  {
-    id: "m7",
-    name: "Kuruma(Armored)",
-    storage: "Arcade",
-    category: "Sports Classic",
-    type: "Ground",
-    comment: "npc cannot destroy",
-  },
-  {
-    id: "m8",
-    name: "Kuruma(Armored)",
-    storage: "Arcade",
-    category: "Sports Car",
-    type: "GroundAndWaterAndAir",
-    comment: "dummy comment 1",
-  },
-];
-
 export default function VehicleTable(props) {
   const rowDoubleClickHandler = (params) => {
     console.log(params);
