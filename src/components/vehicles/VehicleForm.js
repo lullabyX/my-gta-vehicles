@@ -6,7 +6,7 @@ import {
 } from "@mui/icons-material";
 import { Button, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { vehicleCategoris, vehicleTypes } from "./VehicleCategories";
 import useInput from "../hooks/use-input";
 
@@ -17,16 +17,38 @@ const VehicleForm = (props) => {
   const [category, setCategory] = React.useState("");
   const [type, setType] = React.useState("");
 
-  const vehicleNameInput = useInput((value) => value.trim() !== "");
-  const vehicleStorageInput = useInput((value) => value.trim() !== "");
-  const vehicleCommentInput = useInput((value) => true);
+  const {
+    value: vehicleName,
+    setValue: setVehicleName,
+    changeHandler: vehicleNameChangeHandler,
+    touchHandler: nameTouchHandler,
+    reset: vehicleNameReset,
+    isInputValid: isVehicleNameValid,
+    hasError: nameHasError,
+  } = useInput((value) => value.trim() !== "");
+
+  const {
+    value: vehicleStorage,
+    setValue: setVehicleStorage,
+    changeHandler: vehicleStorageChangeHandler,
+    touchHandler: storageTouchHandler,
+    reset: vehicleStorageReset,
+    isInputValid: isVehicleStorageValid,
+    hasError: storageHasError,
+  } = useInput((value) => value.trim() !== "");
+
+  const {
+    value: vehicleComment,
+    setValue: setVehicleComment,
+    changeHandler: vehicleCommentChangeHandler,
+    touchHandler: commentTouchHandler,
+    reset: vehicleCommentReset,
+    isInputValid: isVehicleCommentValid,
+    hasError: commentHasError,
+  } = useInput((value) => true);
 
   const isFormValid =
-    vehicleNameInput.isInputValid &&
-    vehicleStorageInput.isInputValid &&
-    vehicleCommentInput.isInputValid;
-
-  console.log(isFormValid);
+    isVehicleNameValid && isVehicleStorageValid && isVehicleCommentValid;
 
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
@@ -39,9 +61,9 @@ const VehicleForm = (props) => {
   const resetForm = () => {
     setCategory("");
     setType("");
-    vehicleNameInput.reset();
-    vehicleStorageInput.reset();
-    vehicleCommentInput.reset();
+    vehicleNameReset();
+    vehicleStorageReset();
+    vehicleCommentReset();
   };
 
   const submitHandler = (event) => {
@@ -50,11 +72,11 @@ const VehicleForm = (props) => {
       return;
     }
     const vehicleDetail = {
-      name: vehicleNameInput.value.trim(),
-      storage: vehicleStorageInput.value.trim(),
+      name: vehicleName.trim(),
+      storage: vehicleStorage.trim(),
       category: category,
       type: type,
-      comment: vehicleCommentInput.value,
+      comment: vehicleComment.trim(),
     };
     if (editMode) {
       props.onUpdateVehicle(vehicleDetail, editDetails.id, resetForm);
@@ -63,15 +85,33 @@ const VehicleForm = (props) => {
     }
   };
 
+  const {
+    name,
+    storage,
+    comment,
+    category: editCategory,
+    type: editType,
+  } = editDetails;
+
   useEffect(() => {
     if (editMode) {
-      vehicleNameInput.setValue(editDetails.name);
-      vehicleStorageInput.setValue(editDetails.storage);
-      vehicleCommentInput.setValue(editDetails.comment);
-      setCategory(editDetails.category);
-      setType(editDetails.type);
+      setVehicleName(name);
+      setVehicleStorage(storage);
+      setVehicleComment(comment);
+      setCategory(editCategory);
+      setType(editType);
     }
-  }, [editMode]);
+  }, [
+    editMode,
+    name,
+    storage,
+    comment,
+    editCategory,
+    editType,
+    setVehicleName,
+    setVehicleStorage,
+    setVehicleComment,
+  ]);
 
   return (
     <form onSubmit={submitHandler}>
@@ -83,30 +123,26 @@ const VehicleForm = (props) => {
       >
         <div>
           <TextField
-            error={vehicleNameInput.hasError}
+            error={nameHasError}
             id="outlined-basic"
             label="Vehicle Name"
             variant="outlined"
-            onChange={vehicleNameInput.changeHandler}
-            onBlur={vehicleNameInput.touchHandler}
-            value={vehicleNameInput.value}
-            helperText={
-              vehicleNameInput.hasError ? "Vehicle name cannot be empty" : ""
-            }
+            onChange={vehicleNameChangeHandler}
+            onBlur={nameTouchHandler}
+            value={vehicleName}
+            helperText={nameHasError ? "Vehicle name cannot be empty" : ""}
             required
           />
           <TextField
-            error={vehicleStorageInput.hasError}
+            error={storageHasError}
             id="outlined-basic"
             label="Storage"
             variant="outlined"
-            onChange={vehicleStorageInput.changeHandler}
-            onBlur={vehicleStorageInput.touchHandler}
-            value={vehicleStorageInput.value}
+            onChange={vehicleStorageChangeHandler}
+            onBlur={storageTouchHandler}
+            value={vehicleStorage}
             helperText={
-              vehicleStorageInput.hasError
-                ? "Vehicle storage cannot be empty"
-                : ""
+              storageHasError ? "Vehicle storage cannot be empty" : ""
             }
             required
           />
@@ -147,11 +183,12 @@ const VehicleForm = (props) => {
         </div>
         <div className={classes.container}>
           <TextField
+            edit={commentHasError}
             id="outlined-multiline-flexible"
             label="Comment"
-            onChange={vehicleCommentInput.changeHandler}
-            onBlur={vehicleCommentInput.touchHandler}
-            value={vehicleCommentInput.value}
+            onChange={vehicleCommentChangeHandler}
+            onBlur={commentTouchHandler}
+            value={vehicleComment}
             multiline
             maxRows={5}
           />

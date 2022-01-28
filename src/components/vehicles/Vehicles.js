@@ -76,7 +76,7 @@ const Vehicles = (props) => {
     setIsLoading(false);
     setIsSubmitted(true);
     getVehiclesHandler();
-    resetForm();
+    // resetForm();
   };
 
   const deleteVehicleHandler = async (id, resetForm) => {
@@ -105,7 +105,7 @@ const Vehicles = (props) => {
     resetForm();
   };
 
-  const getVehiclesHandler = async () => {
+  const getVehiclesHandler = useCallback(async () => {
     const vehicles = [];
     try {
       const response = await axios(
@@ -121,11 +121,11 @@ const Vehicles = (props) => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     getVehiclesHandler();
-  }, []);
+  }, [getVehiclesHandler]);
 
   const handleOpen = () => setOpenVehicleModal(true);
   const handleClose = () => {
