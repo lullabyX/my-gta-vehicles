@@ -5,6 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import AuthContext from "./store/auth-context";
 import { Fragment, useContext } from "react";
 import Vehicles from "./components/vehicles/Vehicles";
+import VehicleDetail from "./components/vehicles/VehicleDetail";
 
 const darkTheme = createTheme({
   palette: {
@@ -37,6 +38,7 @@ function App() {
 
   return (
     <Fragment>
+      <VehicleDetail />
       <ThemeProvider theme={darkTheme}>
         <Header />
         {!authCtx.isSignedIn && authContent}
