@@ -10,6 +10,7 @@
 }
 
 .item-view--value {
+  width: 65%;
   font-weight: bold;
 }
 

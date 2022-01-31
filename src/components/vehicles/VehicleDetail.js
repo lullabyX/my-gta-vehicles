@@ -16,6 +16,7 @@ import {
   TerrainRounded,
 } from "@mui/icons-material";
 import { Card, CardContent } from "@mui/material";
+import { getSourceFullName, upgradeLocationFull } from "../../utils/functions";
 import classes from "./VehicleDetail.module.css";
 import VehicleItem from "./VehicleItem";
 const dummy_vehicle = {
@@ -111,7 +112,7 @@ const VehicleDetail = (props) => {
             <VehicleItem
               icon={<ShoppingCartRounded style={{ fontSize: "16pt" }} />}
               itemKey="Source"
-              value={dummy_vehicle.source}
+              value={getSourceFullName(dummy_vehicle.source)}
             />
             <VehicleItem
               icon={<MoneyRounded style={{ fontSize: "16pt" }} />}
@@ -121,12 +122,12 @@ const VehicleDetail = (props) => {
             <VehicleItem
               icon={<ConstructionRounded style={{ fontSize: "16pt" }} />}
               itemKey="Upgrade Location"
-              value={dummy_vehicle.upgradeLocation}
+              value={upgradeLocationFull(dummy_vehicle.upgradeLocation)}
             />
             <VehicleItem
               icon={<FitnessCenterRounded style={{ fontSize: "16pt" }} />}
               itemKey="Mass"
-              value={dummy_vehicle.mass}
+              value={`${dummy_vehicle.mass} kg`}
             />
             <VehicleItem
               icon={<SettingsRounded style={{ fontSize: "16pt" }} />}

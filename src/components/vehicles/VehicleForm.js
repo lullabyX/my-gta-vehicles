@@ -7,7 +7,7 @@ import {
 import { Button, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect } from "react";
-import { vehicleCategoris, vehicleTypes } from "./VehicleCategories";
+import { vehicleCategoris, vehicleTypes } from "../../utils/functions";
 import useInput from "../hooks/use-input";
 
 import classes from "./VehicleForm.module.css";
