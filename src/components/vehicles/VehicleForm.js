@@ -1,12 +1,19 @@
 import {
   Add,
+  CategoryRounded,
+  CircleRounded,
   CloseRounded,
+  ConstructionRounded,
   DeleteForeverOutlined,
+  MoneyRounded,
+  ShoppingCartRounded,
+  SpeedRounded,
   UpgradeOutlined,
 } from "@mui/icons-material";
-import { Button, MenuItem, TextField } from "@mui/material";
+import { Autocomplete, Button, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import VehicleContext from "../../store/vehicle-context";
 import { vehicleCategoris, vehicleTypes } from "../../utils/functions";
 import useInput from "../hooks/use-input";
 
@@ -17,15 +24,13 @@ const VehicleForm = (props) => {
   const [category, setCategory] = React.useState("");
   const [type, setType] = React.useState("");
 
-  const {
-    value: vehicleName,
-    setValue: setVehicleName,
-    changeHandler: vehicleNameChangeHandler,
-    touchHandler: nameTouchHandler,
-    reset: vehicleNameReset,
-    isInputValid: isVehicleNameValid,
-    hasError: nameHasError,
-  } = useInput((value) => value.trim() !== "");
+  const [vehicleName, setVehicleName] = React.useState(null);
+
+  const vehicleCtx = useContext(VehicleContext);
+
+  const vehicleNameAutoCompleteOptions = {
+    options: vehicleCtx.vehicleNames,
+  };
 
   const {
     value: vehicleStorage,
@@ -47,8 +52,7 @@ const VehicleForm = (props) => {
     hasError: commentHasError,
   } = useInput((value) => true);
 
-  const isFormValid =
-    isVehicleNameValid && isVehicleStorageValid && isVehicleCommentValid;
+  const isFormValid = isVehicleStorageValid && isVehicleCommentValid;
 
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
@@ -61,7 +65,6 @@ const VehicleForm = (props) => {
   const resetForm = () => {
     setCategory("");
     setType("");
-    vehicleNameReset();
     vehicleStorageReset();
     vehicleCommentReset();
   };
@@ -117,38 +120,45 @@ const VehicleForm = (props) => {
     <form onSubmit={submitHandler}>
       <Box
         sx={{
-          "& .MuiTextField-root": { m: 1, width: "25ch" },
+          "& .MuiTextField-root": { margin: ".25rem 0rem", width: "25ch" },
           textAlign: "center",
         }}
       >
-        <div>
-          <TextField
-            error={nameHasError}
-            id="outlined-basic"
-            label="Vehicle Name"
-            variant="outlined"
-            onChange={vehicleNameChangeHandler}
-            onBlur={nameTouchHandler}
-            value={vehicleName}
-            helperText={nameHasError ? "Vehicle name cannot be empty" : ""}
-            required
-          />
-          <TextField
-            error={storageHasError}
-            id="outlined-basic"
-            label="Storage"
-            variant="outlined"
-            onChange={vehicleStorageChangeHandler}
-            onBlur={storageTouchHandler}
-            value={vehicleStorage}
-            helperText={
-              storageHasError ? "Vehicle storage cannot be empty" : ""
-            }
-            required
-          />
-        </div>
-        <div>
-          <TextField
+        <h2 className={classes.h2}>{`${
+          props.editMode ? "Edit" : "Add"
+        } Vehicle`}</h2>
+        <div className={classes["form-container"]}>
+          <div className={classes["form-container--inline"]}>
+            <Autocomplete
+              {...vehicleNameAutoCompleteOptions}
+              id="controlled-autocomplete"
+              value={vehicleName}
+              onChange={(event, newValue) => {
+                setVehicleName(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField {...params} label="Vehicle Name" variant="filled" />
+              )}
+            />
+            <TextField
+              id="filled-select-currency"
+              select
+              label="Type"
+              value={type}
+              onChange={handleChangeType}
+              helperText="Select your vehicle type"
+              variant="filled"
+              required
+            >
+              {vehicleTypes.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </div>
+          <div className={classes["form-container--inline"]}>
+            {/* <TextField
             id="filled-select-currency"
             select
             label="Category"
@@ -163,38 +173,83 @@ const VehicleForm = (props) => {
                 {option.label}
               </MenuItem>
             ))}
-          </TextField>
-          <TextField
-            id="filled-select-currency"
-            select
-            label="Type"
-            value={type}
-            onChange={handleChangeType}
-            helperText="Select your vehicle type"
-            variant="filled"
-            required
-          >
-            {vehicleTypes.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+          </TextField> */}
+
+            <TextField
+              error={storageHasError}
+              id="outlined-basic"
+              label="Storage"
+              variant="outlined"
+              onChange={vehicleStorageChangeHandler}
+              onBlur={storageTouchHandler}
+              value={vehicleStorage}
+              helperText={
+                storageHasError ? "Vehicle storage cannot be empty" : ""
+              }
+              required
+            />
+            <TextField
+              edit={commentHasError}
+              id="outlined-multiline-flexible"
+              label="Comment"
+              onChange={vehicleCommentChangeHandler}
+              onBlur={commentTouchHandler}
+              value={vehicleComment}
+              multiline
+              maxRows={5}
+            />
+          </div>
         </div>
-        <div className={classes.container}>
-          <TextField
-            edit={commentHasError}
-            id="outlined-multiline-flexible"
-            label="Comment"
-            onChange={vehicleCommentChangeHandler}
-            onBlur={commentTouchHandler}
-            value={vehicleComment}
-            multiline
-            maxRows={5}
-          />
+
+        {/* <div className={classes.container}></div> */}
+        <div className={classes.desc}>
+          <div className={classes["desc-column"]}>
+            <div className={classes["desc-keypair"]}>
+              <div className={classes["desc-keypair--key"]}>
+                <CategoryRounded style={{ fontSize: "14pt" }} />
+              </div>
+              <div className={classes["desc-keypair--value"]}>Super</div>
+            </div>
+            <div className={classes["desc-keypair"]}>
+              <div className={classes["desc-keypair--key"]}>
+                <SpeedRounded style={{ fontSize: "14pt" }} />
+              </div>
+              <div className={classes["desc-keypair--value"]}>142 km/h</div>
+            </div>
+          </div>
+          <div className={classes["desc-column"]}>
+            <div className={classes["desc-keypair"]}>
+              <div className={classes["desc-keypair--key"]}>
+                <ShoppingCartRounded style={{ fontSize: "14pt" }} />
+              </div>
+              <div className={classes["desc-keypair--value"]}>SSASA</div>
+            </div>
+            <div className={classes["desc-keypair"]}>
+              <div className={classes["desc-keypair--key"]}>
+                <MoneyRounded style={{ fontSize: "14pt" }} />
+              </div>
+              <div className={classes["desc-keypair--value"]}>$1,380,000</div>
+            </div>
+          </div>
+          <div className={classes["desc-column"]}>
+            <div className={classes["desc-keypair"]}>
+              <div className={classes["desc-keypair--key"]}>
+                <ConstructionRounded style={{ fontSize: "14pt" }} />
+              </div>
+              <div className={classes["desc-keypair--value"]}>LSC & AVW</div>
+            </div>
+            <div className={classes["desc-keypair"]}>
+              <div className={classes["desc-keypair--key"]}>
+                <CircleRounded style={{ fontSize: "14pt" }} />
+              </div>
+              <div className={classes["desc-keypair--value"]}>AWD</div>
+            </div>
+          </div>
         </div>
       </Box>
-      <div className={classes.button}>
+      <div
+        className={`${props.editMode ? classes.button : classes["button-add"]}`}
+      >
         <Button
           sx={{
             backgroundColor: "#ccc",

@@ -5,6 +5,7 @@ import VehicleContext from "./vehicle-context";
 
 const VehicleProvider = (props) => {
   const [vehicles, setVehicles] = useState({});
+  const [vehicleNames, setVehicleNames] = useState([]);
 
   const authCtx = useContext(AuthContext);
   const { user } = authCtx;
@@ -14,6 +15,11 @@ const VehicleProvider = (props) => {
       const response = await axios(
         `https://gta-owned-vehicles-default-rtdb.firebaseio.com/vehicles/.json?auth=${await user.getIdToken()}`
       );
+      const vehicleNamesExtract = [];
+      for (let key in response.data) {
+        vehicleNamesExtract.push(key);
+      }
+      setVehicleNames(vehicleNamesExtract);
       setVehicles(response.data);
     } catch (error) {
       console.log(error);
@@ -25,7 +31,9 @@ const VehicleProvider = (props) => {
   }, [fetchAllVehicles]);
 
   return (
-    <VehicleContext.Provider value={{ vehicles: vehicles }}>
+    <VehicleContext.Provider
+      value={{ vehicles: vehicles, vehicleNames: vehicleNames }}
+    >
       {props.children}
     </VehicleContext.Provider>
   );

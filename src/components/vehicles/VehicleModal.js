@@ -63,8 +63,6 @@ const VehicleModal = (props) => {
                 </h2>
               )}
               {/* </div> */}
-
-              <h2>{props.editMode ? "Update" : "Add"} Vehicle</h2>
               <VehicleForm
                 onClose={props.onClose}
                 editMode={props.editMode}

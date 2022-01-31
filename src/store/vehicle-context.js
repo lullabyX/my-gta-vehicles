@@ -1,7 +1,8 @@
 import React from 'react';
 
 const VehicleContext = React.createContext({
-  vehicles: {}
+  vehicles: {},
+  vehicleNames: []
 });
 
 export default VehicleContext;

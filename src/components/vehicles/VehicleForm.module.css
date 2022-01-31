@@ -2,7 +2,17 @@
   text-align: left;
 }
 
+.h2 {
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
 .button {
+  text-align: right;
+}
+
+.button-add {
   text-align: right;
 }
 
@@ -11,15 +21,69 @@
   border-color: rgb(0, 83, 0);
 }
 
-@media screen and (max-width: 1058px) {
-  .container {
-    text-align: center;
-  }
+.desc {
+  /* font-size: small; */
+  margin-top: 1rem;
+  text-align: center;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.25);
+  padding: 0.25rem;
 }
 
-@media screen and (max-width: 650px) {
+.desc-column {
+  display: flex;
+  justify-content: space-between;
+}
+.desc-keypair {
+  display: flex;
+  width: 50%;
+}
+.desc-keypair--key {
+  width: 25%;
+}
+
+.desc-keypair--value {
+  font-weight: bold;
+}
+
+.form-container {
+  text-align: center;
+  width: 500px;
+}
+
+.form-container--inline {
+  display: flex;
+  justify-content: space-around;
+}
+
+.form-container--inline--input {
+  width: 25ch;
+  margin: 0rem 0.25rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    text-align: center;
+    margin: auto;
+  }
+  .form-container {
+    width: 250px;
+    text-align: center;
+    margin: auto;
+  }
+  .form-container--inline {
+    display: block;
+    text-align: center;
+    margin: auto;
+  }
   .button {
     display: flex;
+    text-align: center;
+  }
+  .button-add {
+    text-align: right;
+  }
+  .h2 {
     text-align: center;
   }
 }
