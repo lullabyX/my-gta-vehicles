@@ -1,13 +1,7 @@
 import {
   Add,
-  CategoryRounded,
-  CircleRounded,
   CloseRounded,
-  ConstructionRounded,
   DeleteForeverOutlined,
-  MoneyRounded,
-  ShoppingCartRounded,
-  SpeedRounded,
   UpgradeOutlined,
 } from "@mui/icons-material";
 import { Autocomplete, Button, MenuItem, TextField } from "@mui/material";
@@ -18,6 +12,7 @@ import { vehicleCategoris, vehicleTypes } from "../../utils/functions";
 import useInput from "../hooks/use-input";
 
 import classes from "./VehicleForm.module.css";
+import VehicleFormDetail from "./VehicleFormDetail";
 
 const VehicleForm = (props) => {
   const { editMode, editDetails } = props;
@@ -53,10 +48,6 @@ const VehicleForm = (props) => {
   } = useInput((value) => true);
 
   const isFormValid = isVehicleStorageValid && isVehicleCommentValid;
-
-  const handleChangeCategory = (event) => {
-    setCategory(event.target.value);
-  };
 
   const handleChangeType = (event) => {
     setType(event.target.value);
@@ -137,7 +128,13 @@ const VehicleForm = (props) => {
                 setVehicleName(newValue);
               }}
               renderInput={(params) => (
-                <TextField {...params} label="Vehicle Name" variant="filled" />
+                <TextField
+                  {...params}
+                  label="Vehicle Name"
+                  variant="filled"
+                  helperText="Please select your vehicle"
+                  required
+                />
               )}
             />
             <TextField
@@ -146,7 +143,7 @@ const VehicleForm = (props) => {
               label="Type"
               value={type}
               onChange={handleChangeType}
-              helperText="Select your vehicle type"
+              helperText="Please select your vehicle type"
               variant="filled"
               required
             >
@@ -202,50 +199,7 @@ const VehicleForm = (props) => {
         </div>
 
         {/* <div className={classes.container}></div> */}
-        <div className={classes.desc}>
-          <div className={classes["desc-column"]}>
-            <div className={classes["desc-keypair"]}>
-              <div className={classes["desc-keypair--key"]}>
-                <CategoryRounded style={{ fontSize: "14pt" }} />
-              </div>
-              <div className={classes["desc-keypair--value"]}>Super</div>
-            </div>
-            <div className={classes["desc-keypair"]}>
-              <div className={classes["desc-keypair--key"]}>
-                <SpeedRounded style={{ fontSize: "14pt" }} />
-              </div>
-              <div className={classes["desc-keypair--value"]}>142 km/h</div>
-            </div>
-          </div>
-          <div className={classes["desc-column"]}>
-            <div className={classes["desc-keypair"]}>
-              <div className={classes["desc-keypair--key"]}>
-                <ShoppingCartRounded style={{ fontSize: "14pt" }} />
-              </div>
-              <div className={classes["desc-keypair--value"]}>SSASA</div>
-            </div>
-            <div className={classes["desc-keypair"]}>
-              <div className={classes["desc-keypair--key"]}>
-                <MoneyRounded style={{ fontSize: "14pt" }} />
-              </div>
-              <div className={classes["desc-keypair--value"]}>$1,380,000</div>
-            </div>
-          </div>
-          <div className={classes["desc-column"]}>
-            <div className={classes["desc-keypair"]}>
-              <div className={classes["desc-keypair--key"]}>
-                <ConstructionRounded style={{ fontSize: "14pt" }} />
-              </div>
-              <div className={classes["desc-keypair--value"]}>LSC & AVW</div>
-            </div>
-            <div className={classes["desc-keypair"]}>
-              <div className={classes["desc-keypair--key"]}>
-                <CircleRounded style={{ fontSize: "14pt" }} />
-              </div>
-              <div className={classes["desc-keypair--value"]}>AWD</div>
-            </div>
-          </div>
-        </div>
+        <VehicleFormDetail />
       </Box>
       <div
         className={`${props.editMode ? classes.button : classes["button-add"]}`}

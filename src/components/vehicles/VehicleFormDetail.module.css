@@ -1,0 +1,24 @@
+.desc {
+  /* font-size: small; */
+  margin-top: 1rem;
+  text-align: center;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.25);
+  padding: 0.25rem;
+}
+
+.desc-column {
+  display: flex;
+  justify-content: space-between;
+}
+.desc-keypair {
+  display: flex;
+  width: 50%;
+}
+.desc-keypair--key {
+  width: 25%;
+}
+
+.desc-keypair--value {
+  font-weight: bold;
+}
