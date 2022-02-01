@@ -20,29 +20,11 @@ import {
   currencyFormat,
   dateFormat,
   getSourceFullName,
+  getTypeIcon,
   upgradeLocationFull,
 } from "../../utils/functions";
 import classes from "./VehicleDetail.module.css";
 import VehicleItem from "./VehicleItem";
-const dummy_vehicle = {
-  category: "SUVs",
-  vehicle: "Granger 3600LX",
-  mass: "2100",
-  driveGears: "4",
-  maxSpeedTheoretical: "142",
-  drivetrain: "AWD",
-  seats: "8",
-  manufacturer: "Declasse",
-  source: "SSASA",
-  cost: "1380000",
-  storageType: "Garage",
-  upgradeLocation: "LSC & AVW",
-  releaseDate: "2021-12-15T23:00:00.000Z",
-  releaseYear: "2021",
-  dlc: "The Contract",
-  Desc: null,
-  comment: "Black livelry Black livelry Black livelry Black livelry",
-};
 
 const VehicleDetail = (props) => {
   return (
@@ -57,90 +39,92 @@ const VehicleDetail = (props) => {
     >
       <CardContent>
         <div>
-          <h1>{`${dummy_vehicle.manufacturer} ${dummy_vehicle.vehicle}`}</h1>
+          <h1>{`${props.detail.manufacturer} ${props.detail.vehicle}`}</h1>
         </div>
-        <div className={classes.comment}>
-          <h2>Comment</h2>
-          <p>{dummy_vehicle.comment}</p>
-        </div>
+        {props.detail.comment.length > 0 && (
+          <div className={classes.comment}>
+            <h2>Comment</h2>
+            <p>{props.detail.comment}</p>
+          </div>
+        )}
         <div className={classes["list"]}>
           <ul>
             <VehicleItem
               icon={<LocalParkingRounded style={{ fontSize: "16pt" }} />}
               itemKey="Storage"
-              value={dummy_vehicle.storageType}
+              value={props.detail.storageType}
             />
             <VehicleItem
               icon={<TerrainRounded style={{ fontSize: "16pt" }} />}
               itemKey="Type"
-              value={dummy_vehicle.category}
+              value={getTypeIcon(props.detail.type)}
             />
             <VehicleItem
               icon={<CategoryRounded style={{ fontSize: "16pt" }} />}
               itemKey="Category"
-              value={dummy_vehicle.category}
+              value={props.detail.category}
             />
             <VehicleItem
               icon={<LabelRounded style={{ fontSize: "16pt" }} />}
               itemKey="Name"
-              value={dummy_vehicle.vehicle}
+              value={props.detail.vehicle}
             />
             <VehicleItem
               icon={
                 <PrecisionManufacturingRounded style={{ fontSize: "16pt" }} />
               }
               itemKey="Manufacturer"
-              value={dummy_vehicle.manufacturer}
+              value={props.detail.manufacturer}
             />
             <VehicleItem
               icon={<SpeedRounded style={{ fontSize: "16pt" }} />}
               itemKey="Max Speed"
-              value={`${dummy_vehicle.maxSpeedTheoretical} km/h`}
+              value={`${props.detail.maxSpeed} km/h`}
             />
             <VehicleItem
               icon={<ShoppingCartRounded style={{ fontSize: "16pt" }} />}
               itemKey="Source"
-              value={getSourceFullName(dummy_vehicle.source)}
+              value={getSourceFullName(props.detail.source)}
             />
             <VehicleItem
               icon={<MoneyRounded style={{ fontSize: "16pt" }} />}
               itemKey="Cost"
-              value={currencyFormat(dummy_vehicle.cost)}
+              value={currencyFormat(props.detail.cost)}
             />
             <VehicleItem
               icon={<ConstructionRounded style={{ fontSize: "16pt" }} />}
               itemKey="Upgrade Location"
-              value={upgradeLocationFull(dummy_vehicle.upgradeLocation)}
+              value={upgradeLocationFull(props.detail.upgradeLocation)}
             />
             <VehicleItem
               icon={<FitnessCenterRounded style={{ fontSize: "16pt" }} />}
               itemKey="Mass"
-              value={`${dummy_vehicle.mass} kg`}
+              value={`${props.detail.mass} kg`}
             />
             <VehicleItem
               icon={<SettingsRounded style={{ fontSize: "16pt" }} />}
               itemKey="Drive Gears"
-              value={dummy_vehicle.driveGears}
+              value={props.detail.driveGears}
             />
             <VehicleItem
               icon={<CircleRounded style={{ fontSize: "16pt" }} />}
               itemKey="Drive Train"
-              value={dummy_vehicle.drivetrain}
+              value={props.detail.drivetrain}
             />
             <VehicleItem
               icon={<ChairRounded style={{ fontSize: "16pt" }} />}
               itemKey="Seats"
-              value={dummy_vehicle.seats}
+              value={props.detail.seats}
             />
             <VehicleItem
               icon={<CalendarTodayRounded style={{ fontSize: "16pt" }} />}
               itemKey="Release Date"
-              value={dateFormat(dummy_vehicle.releaseDate)}
+              value={dateFormat(props.detail.releaseDate)}
             />
             <VehicleItem
               icon={<ExtensionRounded style={{ fontSize: "16pt" }} />}
               itemKey="DLC"
-              value={dummy_vehicle.dlc}
+              value={props.detail.dlc}
             />
           </ul>
         </div>

@@ -1,5 +1,5 @@
 import { Add } from "@mui/icons-material";
-import { Button, Card } from "@mui/material";
+import { Button } from "@mui/material";
 import { Fragment, useCallback, useContext, useEffect, useState } from "react";
 import VehicleTable from "./VehicleTable";
 import VehicleModal from "./VehicleModal";
@@ -7,6 +7,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import axios from "axios";
 import AuthContext from "../../store/auth-context";
 import VehicleContext from "../../store/vehicle-context";
+import VehicleDetail from "./VehicleDetail";
 
 const Vehicles = (props) => {
   const { user } = useContext(AuthContext);
@@ -21,7 +22,7 @@ const Vehicles = (props) => {
 
   const [isDeleted, setIsDeleted] = useState(false);
 
-  const { vehicles } = useContext(VehicleContext);
+  const { vehicles: loadedVehicles } = useContext(VehicleContext);
 
   const [editDetails, setEditDetails] = useState({
     id: "",
@@ -117,7 +118,7 @@ const Vehicles = (props) => {
       );
       for (let key in response.data) {
         vehicles.push({
-          ...vehicles[response.data[key].fullname],
+          ...loadedVehicles[response.data[key].fullname],
           ...response.data[key],
           id: key,
         });
@@ -126,7 +127,7 @@ const Vehicles = (props) => {
     } catch (error) {
       console.log(error);
     }
-  }, [user]);
+  }, [user, loadedVehicles]);
 
   useEffect(() => {
     getVehiclesHandler();
@@ -171,27 +172,9 @@ const Vehicles = (props) => {
     },
   });
 
-  const commentShowHandler = (comment) => {
-    if (comment && comment.length > 0) {
-      setCommentContent(
-        <Card
-          sx={{
-            maxWidth: 500,
-            margin: "auto",
-            marginTop: ".5rem",
-            boxShadow: "2px 2px 0 rgba(0, 0, 0, 0.25)",
-            padding: ".25rem",
-            borderRadius: "12px",
-          }}
-        >
-          <div style={{ padding: "1rem", marginTop: ".25rem" }}>
-            <p>{comment}</p>
-          </div>
-        </Card>
-      );
-    } else {
-      setCommentContent(<></>);
-    }
+  const commentShowHandler = (id) => {
+    const detail = vehiclesData.filter((data) => data.id === id);
+    setCommentContent(<VehicleDetail detail={detail[0]} />);
   };
 
   return (
@@ -202,7 +185,6 @@ const Vehicles = (props) => {
           onRowSingleClick={commentShowHandler}
           rows={vehiclesData}
         />
-        {commentContent}
       </ThemeProvider>
       {addButton}
       <VehicleModal
@@ -218,6 +200,7 @@ const Vehicles = (props) => {
         isSubmitted={isSubmitted}
         isDeleted={isDeleted}
       />
+      {commentContent}
     </Fragment>
   );
 };

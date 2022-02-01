@@ -27,7 +27,7 @@ export default function VehicleTable(props) {
 
   const rowSingleClickHandler = (params) => {
     console.log(params);
-    props.onRowSingleClick(params.row.comment);
+    props.onRowSingleClick(params.row.id);
   };
 
   return (

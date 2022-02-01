@@ -10,7 +10,6 @@ const VehicleProvider = (props) => {
 
   const authCtx = useContext(AuthContext);
   const { user } = authCtx;
-  const { isSignedIn } = user;
 
   const fetchAllVehicles = useCallback(async () => {
     try {
