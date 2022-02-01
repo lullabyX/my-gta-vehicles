@@ -6,9 +6,9 @@ import {
 } from "@mui/icons-material";
 import { Autocomplete, Button, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import VehicleContext from "../../store/vehicle-context";
-import { vehicleCategoris, vehicleTypes } from "../../utils/functions";
+import { vehicleTypes } from "../../utils/functions";
 import useInput from "../hooks/use-input";
 
 import classes from "./VehicleForm.module.css";
@@ -16,10 +16,10 @@ import VehicleFormDetail from "./VehicleFormDetail";
 
 const VehicleForm = (props) => {
   const { editMode, editDetails } = props;
-  const [category, setCategory] = React.useState("");
-  const [type, setType] = React.useState("");
+  const [type, setType] = useState("");
 
-  const [vehicleName, setVehicleName] = React.useState(null);
+  const [vehicleName, setVehicleName] = useState(null);
+  const [currentVehicle, setCurrentVehicle] = useState({});
 
   const vehicleCtx = useContext(VehicleContext);
 
@@ -49,12 +49,27 @@ const VehicleForm = (props) => {
 
   const isFormValid = isVehicleStorageValid && isVehicleCommentValid;
 
+  const vehicleChangeHandler = (event, newValue) => {
+    setVehicleName(newValue);
+    if (vehicleCtx.vehicles[newValue]) {
+      console.log(vehicleCtx.vehicles[newValue]);
+      setCurrentVehicle(vehicleCtx.vehicles[newValue]);
+      setVehicleStorage(
+        vehicleCtx.vehicles[newValue].isPersonalStorage
+          ? ""
+          : vehicleCtx.vehicles[newValue].storageType
+      );
+    } else {
+      setCurrentVehicle({});
+      setVehicleStorage("");
+    }
+  };
+
   const handleChangeType = (event) => {
     setType(event.target.value);
   };
 
   const resetForm = () => {
-    setCategory("");
     setType("");
     vehicleStorageReset();
     vehicleCommentReset();
@@ -66,9 +81,8 @@ const VehicleForm = (props) => {
       return;
     }
     const vehicleDetail = {
-      name: vehicleName.trim(),
-      storage: vehicleStorage.trim(),
-      category: category,
+      fullname: vehicleName.trim(),
+      storageType: vehicleStorage.trim(),
       type: type,
       comment: vehicleComment.trim(),
     };
@@ -80,7 +94,7 @@ const VehicleForm = (props) => {
   };
 
   const {
-    name,
+    fullname,
     storage,
     comment,
     category: editCategory,
@@ -89,15 +103,14 @@ const VehicleForm = (props) => {
 
   useEffect(() => {
     if (editMode) {
-      setVehicleName(name);
+      setVehicleName(fullname);
       setVehicleStorage(storage);
       setVehicleComment(comment);
-      setCategory(editCategory);
       setType(editType);
     }
   }, [
     editMode,
-    name,
+    fullname,
     storage,
     comment,
     editCategory,
@@ -124,9 +137,7 @@ const VehicleForm = (props) => {
               {...vehicleNameAutoCompleteOptions}
               id="controlled-autocomplete"
               value={vehicleName}
-              onChange={(event, newValue) => {
-                setVehicleName(newValue);
-              }}
+              onChange={vehicleChangeHandler}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -174,6 +185,7 @@ const VehicleForm = (props) => {
 
             <TextField
               error={storageHasError}
+              disabled={!currentVehicle.isPersonalStorage}
               id="outlined-basic"
               label="Storage"
               variant="outlined"
@@ -199,7 +211,7 @@ const VehicleForm = (props) => {
         </div>
 
         {/* <div className={classes.container}></div> */}
-        <VehicleFormDetail />
+        {vehicleName && <VehicleFormDetail currentVehicle={currentVehicle} />}
       </Box>
       <div
         className={`${props.editMode ? classes.button : classes["button-add"]}`}

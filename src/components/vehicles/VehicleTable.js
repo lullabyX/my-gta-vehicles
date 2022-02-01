@@ -4,8 +4,8 @@ import { Card } from "@mui/material";
 import { getTypeIcon } from "../../utils/functions";
 
 const columns = [
-  { field: "name", headerName: "Name", width: 200 },
-  { field: "storage", headerName: "Storage", width: 100 },
+  { field: "fullname", headerName: "Name", width: 200 },
+  { field: "storageType", headerName: "Storage", width: 100 },
   {
     field: "category",
     headerName: "Category",

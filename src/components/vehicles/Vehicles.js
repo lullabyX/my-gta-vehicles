@@ -6,6 +6,7 @@ import VehicleModal from "./VehicleModal";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import axios from "axios";
 import AuthContext from "../../store/auth-context";
+import VehicleContext from "../../store/vehicle-context";
 
 const Vehicles = (props) => {
   const { user } = useContext(AuthContext);
@@ -20,11 +21,12 @@ const Vehicles = (props) => {
 
   const [isDeleted, setIsDeleted] = useState(false);
 
+  const { vehicles } = useContext(VehicleContext);
+
   const [editDetails, setEditDetails] = useState({
     id: "",
-    name: "",
+    fullname: "",
     storage: "",
-    category: "",
     type: "",
     comment: "",
   });
@@ -113,9 +115,12 @@ const Vehicles = (props) => {
           user.uid
         }.json?auth=${await user.getIdToken()}`
       );
-      console.log(response);
       for (let key in response.data) {
-        vehicles.push({ ...response.data[key], id: key });
+        vehicles.push({
+          ...vehicles[response.data[key].fullname],
+          ...response.data[key],
+          id: key,
+        });
       }
       setVehiclesData(vehicles);
     } catch (error) {

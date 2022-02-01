@@ -6,6 +6,7 @@ import AuthContext from "./store/auth-context";
 import { Fragment, useContext } from "react";
 import Vehicles from "./components/vehicles/Vehicles";
 import VehicleDetail from "./components/vehicles/VehicleDetail";
+import VehicleContext from "./store/vehicle-context";
 
 const darkTheme = createTheme({
   palette: {
@@ -18,6 +19,7 @@ const darkTheme = createTheme({
 
 function App() {
   const authCtx = useContext(AuthContext);
+  const vehicleCtx = useContext(VehicleContext);
 
   const authContent = (
     <Card
@@ -43,7 +45,7 @@ function App() {
         <Header />
         {!authCtx.isSignedIn && authContent}
       </ThemeProvider>
-      {authCtx.isSignedIn && <Vehicles />}
+      {authCtx.isSignedIn && vehicleCtx.isVehicleLoaded && <Vehicles />}
     </Fragment>
   );
 }

@@ -16,11 +16,16 @@ import {
   TerrainRounded,
 } from "@mui/icons-material";
 import { Card, CardContent } from "@mui/material";
-import { getSourceFullName, upgradeLocationFull } from "../../utils/functions";
+import {
+  currencyFormat,
+  dateFormat,
+  getSourceFullName,
+  upgradeLocationFull,
+} from "../../utils/functions";
 import classes from "./VehicleDetail.module.css";
 import VehicleItem from "./VehicleItem";
 const dummy_vehicle = {
-  type: "SUVs",
+  category: "SUVs",
   vehicle: "Granger 3600LX",
   mass: "2100",
   driveGears: "4",
@@ -37,23 +42,6 @@ const dummy_vehicle = {
   dlc: "The Contract",
   Desc: null,
   comment: "Black livelry Black livelry Black livelry Black livelry",
-};
-
-const dateFormat = (date) => {
-  const dateObj = new Date(date);
-  return dateObj.toLocaleString("en-US", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-};
-
-const currencyFormat = (money) => {
-  return (+money).toLocaleString("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  });
 };
 
 const VehicleDetail = (props) => {
@@ -85,12 +73,12 @@ const VehicleDetail = (props) => {
             <VehicleItem
               icon={<TerrainRounded style={{ fontSize: "16pt" }} />}
               itemKey="Type"
-              value={dummy_vehicle.type}
+              value={dummy_vehicle.category}
             />
             <VehicleItem
               icon={<CategoryRounded style={{ fontSize: "16pt" }} />}
               itemKey="Category"
-              value={dummy_vehicle.type}
+              value={dummy_vehicle.category}
             />
             <VehicleItem
               icon={<LabelRounded style={{ fontSize: "16pt" }} />}

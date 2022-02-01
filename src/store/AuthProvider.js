@@ -59,7 +59,6 @@ const AuthProvider = (props) => {
     const unregisterAuthObserver = firebase
       .auth()
       .onAuthStateChanged((user) => {
-        console.log(user);
         dispatch({
           type: !!user,
           user: user,

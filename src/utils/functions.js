@@ -198,3 +198,24 @@ export const upgradeLocationFull = (location) => {
 
   return locationFull;
 };
+
+export const dateFormat = (date) => {
+  const dateObj = new Date(date);
+  return dateObj.toLocaleString("en-US", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+};
+
+export const currencyFormat = (money) => {
+  return (+money).toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  });
+};
+
+export const slashFormat = (str) => {
+  return str.replace(/Slash/g, "/");
+};
