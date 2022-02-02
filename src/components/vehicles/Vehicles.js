@@ -27,8 +27,7 @@ const Vehicles = (props) => {
   const [editDetails, setEditDetails] = useState({
     id: "",
     fullname: "",
-    storage: "",
-    type: "",
+    storageType: "",
     comment: "",
   });
 
@@ -37,7 +36,7 @@ const Vehicles = (props) => {
     setIsError(false);
     setIsSubmitted(false);
     try {
-      const response = await axios(
+      await axios(
         `https://gta-owned-vehicles-default-rtdb.firebaseio.com/users/${
           user.uid
         }.json?auth=${await user.getIdToken()}`,
@@ -46,7 +45,6 @@ const Vehicles = (props) => {
           data: vehicleData,
         }
       );
-      console.log(response);
     } catch (error) {
       console.log(error);
       setIsError(true);
@@ -62,7 +60,7 @@ const Vehicles = (props) => {
     setIsError(false);
     setIsSubmitted(false);
     try {
-      const response = await axios(
+      await axios(
         `https://gta-owned-vehicles-default-rtdb.firebaseio.com/users/${
           user.uid
         }/${id}.json?auth=${await user.getIdToken()}`,
@@ -71,7 +69,6 @@ const Vehicles = (props) => {
           data: vehicleData,
         }
       );
-      console.log(response);
     } catch (error) {
       console.log(error);
       setIsError(true);
@@ -86,9 +83,8 @@ const Vehicles = (props) => {
     setIsLoading(true);
     setIsError(false);
     setIsSubmitted(false);
-    console.log(id);
     try {
-      const response = await axios(
+      await axios(
         `https://gta-owned-vehicles-default-rtdb.firebaseio.com/users/${
           user.uid
         }/${id}.json?auth=${await user.getIdToken()}`,
@@ -96,7 +92,6 @@ const Vehicles = (props) => {
           method: "DELETE",
         }
       );
-      console.log(response);
     } catch (error) {
       console.log(error);
       setIsError(true);

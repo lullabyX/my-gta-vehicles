@@ -22,6 +22,7 @@ const VehicleForm = (props) => {
   const [currentVehicle, setCurrentVehicle] = useState({});
 
   const vehicleCtx = useContext(VehicleContext);
+  const { vehicles } = vehicleCtx;
 
   const vehicleNameAutoCompleteOptions = {
     options: vehicleCtx.vehicleNames,
@@ -35,7 +36,7 @@ const VehicleForm = (props) => {
     reset: vehicleStorageReset,
     isInputValid: isVehicleStorageValid,
     hasError: storageHasError,
-  } = useInput((value) => value.trim() !== "");
+  } = useInput((value = "") => value.trim() !== "");
 
   const {
     value: vehicleComment,
@@ -52,7 +53,6 @@ const VehicleForm = (props) => {
   const vehicleChangeHandler = (event, newValue) => {
     setVehicleName(newValue);
     if (vehicleCtx.vehicles[newValue]) {
-      console.log(vehicleCtx.vehicles[newValue]);
       setCurrentVehicle(vehicleCtx.vehicles[newValue]);
       setVehicleStorage(
         vehicleCtx.vehicles[newValue].isPersonalStorage
@@ -93,28 +93,30 @@ const VehicleForm = (props) => {
     }
   };
 
-  const {
-    fullname,
-    storage,
-    comment,
-    category: editCategory,
-    type: editType,
-  } = editDetails;
+  const { fullname, storageType, comment, type: editType } = editDetails;
 
   useEffect(() => {
     if (editMode) {
+      const selectedVehicle = vehicles[fullname];
+      setCurrentVehicle({
+        ...selectedVehicle,
+        fullname: fullname,
+        storageType: storageType,
+        type: editType,
+        comment: comment,
+      });
       setVehicleName(fullname);
-      setVehicleStorage(storage);
+      setVehicleStorage(storageType);
       setVehicleComment(comment);
       setType(editType);
     }
   }, [
     editMode,
     fullname,
-    storage,
+    storageType,
     comment,
-    editCategory,
     editType,
+    vehicles,
     setVehicleName,
     setVehicleStorage,
     setVehicleComment,
@@ -134,6 +136,7 @@ const VehicleForm = (props) => {
         <div className={classes["form-container"]}>
           <div className={classes["form-container--inline"]}>
             <Autocomplete
+              disabled={editMode}
               {...vehicleNameAutoCompleteOptions}
               id="controlled-autocomplete"
               value={vehicleName}
@@ -143,7 +146,7 @@ const VehicleForm = (props) => {
                   {...params}
                   label="Vehicle Name"
                   variant="filled"
-                  helperText="Please select your vehicle"
+                  helperText={editMode ? "" : "Please select your vehicle"}
                   required
                 />
               )}

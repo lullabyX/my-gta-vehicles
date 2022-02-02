@@ -21,12 +21,10 @@ const columns = [
 
 export default function VehicleTable(props) {
   const rowDoubleClickHandler = (params) => {
-    console.log(params);
     props.onEdit(params.row);
   };
 
   const rowSingleClickHandler = (params) => {
-    console.log(params);
     props.onRowSingleClick(params.row.id);
   };
 
