@@ -9,7 +9,7 @@ const VehicleProvider = (props) => {
   const [vehicleNames, setVehicleNames] = useState([]);
 
   const authCtx = useContext(AuthContext);
-  const { user } = authCtx;
+  const { user, isSignedIn } = authCtx;
 
   const fetchAllVehicles = useCallback(async () => {
     try {
@@ -29,8 +29,10 @@ const VehicleProvider = (props) => {
   }, [user]);
 
   useEffect(() => {
-    fetchAllVehicles();
-  }, [fetchAllVehicles]);
+    if (isSignedIn) {
+      fetchAllVehicles();
+    }
+  }, [fetchAllVehicles, isSignedIn]);
 
   return (
     <VehicleContext.Provider

@@ -37,12 +37,30 @@ function App() {
     </Card>
   );
 
+  const LoadingContent = (
+    <Card
+      sx={{
+        maxWidth: 350,
+        minWidth: 125,
+        backgroundColor: "white",
+        margin: "auto",
+        marginTop: "12.5%",
+        textAlign: "center",
+      }}
+    >
+      <CardContent>
+        <h2>Loading...</h2>
+      </CardContent>
+    </Card>
+  );
+
   return (
     <Fragment>
       <ThemeProvider theme={darkTheme}>
         <Header />
         {!authCtx.isSignedIn && authContent}
       </ThemeProvider>
+      {authCtx.isSignedIn && !vehicleCtx.isVehicleLoaded && LoadingContent}
       {authCtx.isSignedIn && vehicleCtx.isVehicleLoaded && <Vehicles />}
     </Fragment>
   );

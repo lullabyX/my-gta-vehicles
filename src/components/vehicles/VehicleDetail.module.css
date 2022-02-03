@@ -1,9 +1,3 @@
-@import url(//db.onlinewebfonts.com/c/4cca73663be210d1abb8d4c8879cd5ce?family=Pricedown);
-@font-face {
-  font-family: "pricedown";
-  src: url("../../fonts/TisaSansPro-Regular.woff") format("woff");
-}
-
 .comment {
   text-align: left;
 }
