@@ -1,13 +1,13 @@
 import { Add } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { Fragment, useCallback, useContext, useEffect, useState } from "react";
-import VehicleTable from "./VehicleTable";
-import VehicleModal from "./VehicleModal";
+import VehicleTable from "./Vehicle Table/VehicleTable";
+import VehicleModal from "./New Vehicle/VehicleModal";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import axios from "axios";
 import AuthContext from "../../store/auth-context";
 import VehicleContext from "../../store/vehicle-context";
-import VehicleDetail from "./VehicleDetail";
+import VehicleDetail from "./Detail/VehicleDetail";
 
 const Vehicles = (props) => {
   const { user } = useContext(AuthContext);
@@ -167,7 +167,8 @@ const Vehicles = (props) => {
     },
   });
 
-  const commentShowHandler = (id) => {
+  const commentShowHandler = (id) =>
+  {
     const detail = vehiclesData.filter((data) => data.id === id);
     setCommentContent(<VehicleDetail detail={detail[0]} />);
   };

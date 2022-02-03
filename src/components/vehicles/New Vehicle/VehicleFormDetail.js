@@ -6,7 +6,7 @@ import {
   ShoppingCartRounded,
   SpeedRounded,
 } from "@mui/icons-material";
-import { currencyFormat } from "../../utils/functions";
+import { currencyFormat } from "../../../utils/functions";
 import classes from "./VehicleFormDetail.module.css";
 
 const VehicleFormDetail = ({ currentVehicle }) => {

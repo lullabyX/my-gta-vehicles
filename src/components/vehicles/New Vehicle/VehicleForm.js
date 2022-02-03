@@ -7,9 +7,9 @@ import {
 import { Autocomplete, Button, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useContext, useEffect, useState } from "react";
-import VehicleContext from "../../store/vehicle-context";
-import { vehicleTypes } from "../../utils/functions";
-import useInput from "../hooks/use-input";
+import VehicleContext from "../../../store/vehicle-context";
+import { vehicleTypes } from "../../../utils/functions";
+import useInput from "../../hooks/use-input";
 
 import classes from "./VehicleForm.module.css";
 import VehicleFormDetail from "./VehicleFormDetail";

@@ -22,7 +22,7 @@ import {
   getSourceFullName,
   getTypeIcon,
   upgradeLocationFull,
-} from "../../utils/functions";
+} from "../../../utils/functions";
 import classes from "./VehicleDetail.module.css";
 import VehicleItem from "./VehicleItem";
 

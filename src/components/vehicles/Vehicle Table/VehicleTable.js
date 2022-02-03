@@ -1,7 +1,7 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Card } from "@mui/material";
-import { getTypeIcon } from "../../utils/functions";
+import { getTypeIcon } from "../../../utils/functions";
 
 const columns = [
   { field: "fullname", headerName: "Name", width: 200 },
