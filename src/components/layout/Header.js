@@ -13,7 +13,7 @@ export default function Header(props) {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            GTA Online Owned Vehicles
+            MY GTA VEHICLES
           </Typography>
           {authCtx.isSignedIn && (
             <Button color="inherit" onClick={authCtx.signout}>

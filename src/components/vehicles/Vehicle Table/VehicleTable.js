@@ -5,7 +5,7 @@ import { getTypeIcon } from "../../../utils/functions";
 
 const columns = [
   { field: "fullname", headerName: "Name", width: 200 },
-  { field: "storageType", headerName: "Storage", width: 100 },
+  { field: "storageType", headerName: "Storage", width: 120 },
   {
     field: "category",
     headerName: "Category",
@@ -20,6 +20,7 @@ const columns = [
 ];
 
 export default function VehicleTable(props) {
+  const [pageSize, setPageSize] = React.useState(10);
   const rowDoubleClickHandler = (params) => {
     props.onEdit(params.row);
   };
@@ -48,6 +49,10 @@ export default function VehicleTable(props) {
         editMode="row"
         onRowDoubleClick={rowDoubleClickHandler}
         onRowClick={rowSingleClickHandler}
+        pageSize={pageSize}
+        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        rowsPerPageOptions={[5, 10, 20, 50]}
+        pagination
       />
     </Card>
   );

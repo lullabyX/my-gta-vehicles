@@ -47,6 +47,16 @@ const VehicleDetail = (props) => {
             <p>{props.detail.comment}</p>
           </div>
         )}
+        <div className={classes["image-div"]}>
+          <img
+            src={props.detail.images.frontQuarter}
+            alt={props.detail.vehicle}
+          />
+          <img
+            src={props.detail.images.rearQuarter}
+            alt={props.detail.vehicle}
+          />
+        </div>
         <div className={classes["list"]}>
           <ul>
             <VehicleItem

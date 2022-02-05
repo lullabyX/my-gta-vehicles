@@ -13,7 +13,7 @@ const Vehicles = (props) => {
   const { user } = useContext(AuthContext);
   const [openVehicleModal, setOpenVehicleModal] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [commentContent, setCommentContent] = useState(<></>);
+  const [detailContent, setDetailContent] = useState(<></>);
   const [vehiclesData, setVehiclesData] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -167,10 +167,9 @@ const Vehicles = (props) => {
     },
   });
 
-  const commentShowHandler = (id) =>
-  {
+  const detailShowHandler = (id) => {
     const detail = vehiclesData.filter((data) => data.id === id);
-    setCommentContent(<VehicleDetail detail={detail[0]} />);
+    setDetailContent(<VehicleDetail detail={detail[0]} />);
   };
 
   return (
@@ -178,7 +177,7 @@ const Vehicles = (props) => {
       <ThemeProvider theme={darkTheme}>
         <VehicleTable
           onEdit={vehicleEditHandler}
-          onRowSingleClick={commentShowHandler}
+          onRowSingleClick={detailShowHandler}
           rows={vehiclesData}
         />
       </ThemeProvider>
@@ -196,7 +195,7 @@ const Vehicles = (props) => {
         isSubmitted={isSubmitted}
         isDeleted={isDeleted}
       />
-      {commentContent}
+      {detailContent}
     </Fragment>
   );
 };
