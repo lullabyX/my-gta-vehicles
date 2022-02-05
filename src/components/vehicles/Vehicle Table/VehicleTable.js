@@ -1,7 +1,12 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import VehicleTableToolbar from "./VehicleTableToolbar";
 import { Card } from "@mui/material";
-import { getTypeIcon } from "../../../utils/functions";
+import {
+  currencyFormat,
+  dateFormat,
+  getTypeIcon,
+} from "../../../utils/functions";
 
 const columns = [
   { field: "fullname", headerName: "Name", width: 200 },
@@ -16,6 +21,28 @@ const columns = [
     headerName: "Type",
     width: 90,
     renderCell: (params) => getTypeIcon(params.formattedValue),
+  },
+  {
+    field: "maxSpeed",
+    headerName: "Top Speed",
+    width: 100,
+    type: "number",
+    renderCell: (params) => `${params.formattedValue} km/h`,
+  },
+  {
+    field: "cost",
+    headerName: "Cost",
+    width: 100,
+    type: "number",
+    renderCell: (params) => currencyFormat(params.formattedValue),
+  },
+  {
+    field: "releaseDate",
+    headerName: "Release Date",
+    width: 150,
+    type: "date",
+    // align: 'left'
+    renderCell: (params) => dateFormat(params.formattedValue),
   },
 ];
 
@@ -32,7 +59,7 @@ export default function VehicleTable(props) {
   return (
     <Card
       sx={{
-        height: 450,
+        height: 530,
         maxWidth: 500,
         margin: "auto",
         marginTop: "2%",
@@ -53,6 +80,18 @@ export default function VehicleTable(props) {
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowsPerPageOptions={[5, 10, 20, 50]}
         pagination
+        components={{
+          Toolbar: VehicleTableToolbar,
+        }}
+        componentsProps={{
+          panel: {
+            sx: {
+              "& .MuiFormControl-root": {
+                width: "auto",
+              },
+            },
+          },
+        }}
       />
     </Card>
   );

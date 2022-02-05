@@ -3,6 +3,11 @@
   src: url("./fonts/TisaSansPro-Regular.woff") format("woff");
 }
 
+div[role="tooltip"] {
+  top: -100px !important;
+  position: fixed !important;
+}
+
 body {
   margin: 0;
   font-family: ff-tisa-sans-web-pro, sans-serif;

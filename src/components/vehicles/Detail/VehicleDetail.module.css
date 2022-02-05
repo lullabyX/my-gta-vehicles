@@ -39,7 +39,7 @@
     justify-content: space-evenly;
     text-align: center;
     padding: 0rem;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     margin-bottom: 0.75rem;
   }
   .image-div img {
