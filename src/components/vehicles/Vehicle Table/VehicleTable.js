@@ -12,8 +12,8 @@ const columns = [
   { field: "fullname", headerName: "Name", width: 200 },
   { field: "storageType", headerName: "Storage", width: 120 },
   {
-    field: "category",
-    headerName: "Category",
+    field: "class",
+    headerName: "Class",
     width: 102,
   },
   {

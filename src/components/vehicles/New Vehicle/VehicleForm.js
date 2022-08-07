@@ -121,7 +121,6 @@ const VehicleForm = (props) => {
     setVehicleStorage,
     setVehicleComment,
   ]);
-
   return (
     <form onSubmit={submitHandler}>
       <Box

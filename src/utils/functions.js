@@ -158,43 +158,51 @@ export const getTypeIcon = (typeValue) => {
 };
 
 export const getSourceFullName = (source) => {
-  let sourceFull = "";
-  switch (source) {
-    case "SSASA":
-      sourceFull = "Southern San Andreas Super Autos";
-      break;
-    case "L.Motorsport":
-      sourceFull = "Legendary Motorsports";
-      break;
-    case "Warstock":
-      sourceFull = "Warstock Cache & Carry";
-      break;
-    case "ArenaWar":
-      sourceFull = "Arena War";
-      break;
-    case "MOC":
-      sourceFull = "Mobile Operations Center";
-      break;
-    case "P and M":
-      sourceFull = "Pedal and Metal Cycles";
-      break;
-    case "Elitas":
-      sourceFull = "Elitás Travel";
-      break;
-    case "Benny's":
-      sourceFull = "Benny's Original Motor Works";
-      break;
-    default:
-      sourceFull = source;
-  }
+  let sourceFull = source
+    .replace("SSASA", "Southern San Andreas Super Autos")
+    .replace("L.Motorsport", "Legendary Motorsports")
+    .replace("Warstock", "Warstock Cache & Carry")
+    .replace("ArenaWar", "Arena War")
+    .replace("P and M", "Pedal and Metal Cycles")
+    .replace("Elitas Travel", "Elitás Travel")
+    .replace("Benny's", "Benny's Original Motor Works");
+  // switch (source) {
+  //   case "SSASA":
+  //     sourceFull = "Southern San Andreas Super Autos";
+  //     break;
+  //   case "L.Motorsport":
+  //     sourceFull = "Legendary Motorsports";
+  //     break;
+  //   case "Warstock":
+  //     sourceFull = "Warstock Cache & Carry";
+  //     break;
+  //   case "ArenaWar":
+  //     sourceFull = "Arena War";
+  //     break;
+  //   case "MOC":
+  //     sourceFull = "Mobile Operations Center";
+  //     break;
+  //   case "P and M":
+  //     sourceFull = "Pedal and Metal Cycles";
+  //     break;
+  //   case "Elitas":
+  //     sourceFull = "Elitás Travel";
+  //     break;
+  //   case "Benny's":
+  //     sourceFull = "Benny's Original Motor Works";
+  //     break;
+  //   default:
+  //     sourceFull = source;
 
   return sourceFull;
 };
 
 export const upgradeLocationFull = (location) => {
   let locationFull = location.replace(/LSC/g, "Los Santos Customs");
-  locationFull = locationFull.replace(/AVW/g, "Agency Vehicle Workshop");
-  locationFull = locationFull.replace(/MOC/g, "Mobile Operations Center");
+  locationFull = locationFull.replace(/Agency/g, "Agency Vehicle Workshop");
+  locationFull = locationFull
+    .replace(/MOC/g, "Mobile Operations Center")
+    .replace("Benny's", "Benny's Original Motor Works");
 
   return locationFull;
 };

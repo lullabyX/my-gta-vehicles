@@ -39,7 +39,9 @@ const VehicleDetail = (props) => {
     >
       <CardContent>
         <div>
-          <h1>{`${props.detail.manufacturer} ${props.detail.vehicle}`}</h1>
+          <h1>{`${props.detail.manufacturer.replace(/Unknown/g, "").trim()} ${
+            props.detail.vehicle
+          }`}</h1>
         </div>
         {props.detail.comment.length > 0 && (
           <div className={classes.comment}>
@@ -48,14 +50,7 @@ const VehicleDetail = (props) => {
           </div>
         )}
         <div className={classes["image-div"]}>
-          <img
-            src={props.detail.images.frontQuarter}
-            alt={props.detail.vehicle}
-          />
-          <img
-            src={props.detail.images.rearQuarter}
-            alt={props.detail.vehicle}
-          />
+          <img src={props.detail.image} alt={props.detail.vehicle} />
         </div>
         <div className={classes["list"]}>
           <ul>
@@ -71,8 +66,8 @@ const VehicleDetail = (props) => {
             />
             <VehicleItem
               icon={<CategoryRounded style={{ fontSize: "16pt" }} />}
-              itemKey="Category"
-              value={props.detail.category}
+              itemKey="Class"
+              value={props.detail.class}
             />
             <VehicleItem
               icon={<LabelRounded style={{ fontSize: "16pt" }} />}

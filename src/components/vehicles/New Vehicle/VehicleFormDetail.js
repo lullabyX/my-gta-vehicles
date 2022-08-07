@@ -11,7 +11,7 @@ import classes from "./VehicleFormDetail.module.css";
 
 const VehicleFormDetail = ({ currentVehicle }) => {
   const {
-    category: vehicleClass,
+    class: vehicleClass,
     drivetrain,
     maxSpeed,
     source,
