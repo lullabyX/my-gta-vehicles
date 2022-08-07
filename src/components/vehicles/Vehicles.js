@@ -1,13 +1,20 @@
 import { Add } from "@mui/icons-material";
-import { Button } from "@mui/material";
-import { Fragment, useCallback, useContext, useEffect, useState } from "react";
-import VehicleTable from "./Vehicle Table/VehicleTable";
-import VehicleModal from "./New Vehicle/VehicleModal";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  Typography,
+} from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { GridExpandMoreIcon } from "@mui/x-data-grid";
 import axios from "axios";
+import { Fragment, useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "../../store/auth-context";
 import VehicleContext from "../../store/vehicle-context";
 import VehicleDetail from "./Detail/VehicleDetail";
+import VehicleModal from "./New Vehicle/VehicleModal";
+import VehicleTable from "./Vehicle Table/VehicleTable";
 
 const Vehicles = (props) => {
   const { user } = useContext(AuthContext);
@@ -167,6 +174,38 @@ const Vehicles = (props) => {
     },
   });
 
+  const help = (
+    <div
+      style={{
+        maxWidth: 495,
+        margin: "auto",
+        marginTop: "1rem",
+      }}
+    >
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<GridExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography sx={{ fontWeight: "bold" }}>Help</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ul style={{ paddingLeft: "1rem" }}>
+            <li>You can sort/filter based on vehicle properties in the table</li>
+            <li>
+              In the table, single click on a vehicle to see it's details
+            </li>
+            <li>Double click on a vehicle to edit/delete it</li>
+          </ul>
+          <p style={{ fontStyle: "italic" }}>
+            Data is gathered from gtacars.net
+          </p>
+        </AccordionDetails>
+      </Accordion>
+    </div>
+  );
+
   const detailShowHandler = (id) => {
     const detail = vehiclesData.filter((data) => data.id === id);
     setDetailContent(<VehicleDetail detail={detail[0]} />);
@@ -196,6 +235,7 @@ const Vehicles = (props) => {
         isDeleted={isDeleted}
       />
       {detailContent}
+      {help}
     </Fragment>
   );
 };
