@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+# About
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The project helps you to keep track of the vehicles that you own in Grand Theft Auto: Online. Add the vehicles you own with garage location, click on the vehicle to see it's details, sort/filter the vehicles based on their properties. 
 
-## Available Scripts
+# Features
 
-In the project directory, you can run:
 
-### `npm start`
+## Add your vehicles with storage location
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Click on the 'ADD NEW' button to add new vehicles.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+https://user-images.githubusercontent.com/20172066/183298625-98bd5391-04b7-478f-bc94-22a050ebd4c2.mp4
 
-### `npm test`
+## View vehicle details, update storage location and delete vehicle
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* In the table, **single click** on a vehicle row to see it's details.
+* **Double click** on a vehicle row pops a modal where you can update it's storage location, also delete the vehicle from the table.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+https://user-images.githubusercontent.com/20172066/183298687-ee66aa5d-cf78-4d30-a641-3c51e078fc0b.mp4
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Sort/filter the vehicles in the table based on vehicle properties
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Click on the column header to sort the vehicles based on that property.
+* Filter vehicles by clicking the **Filters** button on top of the table. You can filter based on any vehicle property(column).
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+https://user-images.githubusercontent.com/20172066/183298935-b76c2c20-17e7-4c15-837e-78caace186e7.mp4
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+*Vehicles data is gathered from [gtacars.net](https://gtacars.net/?sort=release_date)*
