@@ -225,8 +225,10 @@ const VehicleForm = (props) => {
             color: "black",
             border: "1px solid black",
             marginRight: ".5rem",
+            ":hover": {
+              backgroundColor: "#AA0000",
+            },
           }}
-          color="secondary"
           onClick={props.onClose}
         >
           <CloseRounded />
@@ -239,8 +241,10 @@ const VehicleForm = (props) => {
               color: "black",
               border: "1px solid red",
               marginRight: ".5rem",
+              ":hover": {
+                backgroundColor: "#AA0000",
+              },
             }}
-            color="secondary"
             onClick={props.onDeleteVehicle.bind(
               "dummy",
               editDetails.id,
@@ -257,6 +261,9 @@ const VehicleForm = (props) => {
             backgroundColor: "black",
             marginTop: "1rem",
             border: "1px solid black",
+            ":hover": {
+              backgroundColor: "#452c63",
+            },
           }}
           startIcon={editMode ? <UpgradeOutlined /> : <Add />}
           color="secondary"

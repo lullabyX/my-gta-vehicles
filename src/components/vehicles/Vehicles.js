@@ -12,12 +12,14 @@ import axios from "axios";
 import { Fragment, useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "../../store/auth-context";
 import VehicleContext from "../../store/vehicle-context";
+import GetToken from "./AddFromSC/GetToken";
 import VehicleDetail from "./Detail/VehicleDetail";
 import VehicleModal from "./New Vehicle/VehicleModal";
 import VehicleTable from "./Vehicle Table/VehicleTable";
 
-const Vehicles = (props) => {
-  const { user } = useContext(AuthContext);
+const Vehicles = (props) =>
+{
+  const {user} = useContext(AuthContext);
   const [openVehicleModal, setOpenVehicleModal] = useState(false);
   const [edit, setEdit] = useState(false);
   const [detailContent, setDetailContent] = useState(<></>);
@@ -29,7 +31,7 @@ const Vehicles = (props) => {
 
   const [isDeleted, setIsDeleted] = useState(false);
 
-  const { vehicles: loadedVehicles } = useContext(VehicleContext);
+  const {vehicles: loadedVehicles} = useContext(VehicleContext);
 
   const [editDetails, setEditDetails] = useState({
     id: "",
@@ -155,7 +157,14 @@ const Vehicles = (props) => {
     <div style={{ textAlign: "center" }}>
       <Button
         variant="contained"
-        sx={{ backgroundColor: "black", marginTop: "1rem", color: "#eee" }}
+        sx={{
+          backgroundColor: "black",
+          marginTop: "1rem",
+          color: "#eee",
+          ":hover": {
+            backgroundColor: "#452c63",
+          },
+        }}
         startIcon={<Add />}
         color="secondary"
         onClick={handleOpen}
@@ -213,6 +222,7 @@ const Vehicles = (props) => {
 
   return (
     <Fragment>
+      <GetToken />
       <ThemeProvider theme={darkTheme}>
         <VehicleTable
           onEdit={vehicleEditHandler}
