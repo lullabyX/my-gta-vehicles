@@ -5,7 +5,7 @@ const useInput = (checkValidity) => {
   const [isTouched, setIsTouched] = useState(false);
 
   const changeHandler = (event) => {
-    setValue(event.target.value);
+    setValue(event.target.value.trim());
   };
 
   const touchHandler = () => {
