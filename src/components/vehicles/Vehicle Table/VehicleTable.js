@@ -59,7 +59,8 @@ export default function VehicleTable(props) {
   return (
     <Card
       sx={{
-        height: "70vh",
+        height: "calc(100vh - 64px - 96px - 60px)",
+        minHeight: "500px",
         maxWidth: 870,
         margin: "auto",
         marginTop: "15px",

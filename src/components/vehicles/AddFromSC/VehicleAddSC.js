@@ -12,7 +12,7 @@ import { GridExpandMoreIcon } from "@mui/x-data-grid";
 import useInput from "../../hooks/use-input";
 import {retrieveVehicles} from "./getVehiclesFromSC";
 
-const GetToken = (props) => {
+const VehicleAddSC = (props) => {
   const tokenInput = useInput((value) => value !== "");
 
   return (
@@ -90,4 +90,4 @@ const GetToken = (props) => {
   );
 };
 
-export default GetToken;
+export default VehicleAddSC;

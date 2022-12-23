@@ -12,11 +12,12 @@ import axios from "axios";
 import {useCallback, useContext, useEffect, useState} from "react";
 import AuthContext from "../../store/auth-context";
 import VehicleContext from "../../store/vehicle-context";
-import GetToken from "./AddFromSC/GetToken";
+import GetToken from "./AddFromSC/VehicleAddSC";
 import VehicleDetail from "./Detail/VehicleDetail";
 import VehicleModal from "./New Vehicle/VehicleModal";
 import VehicleTable from "./Vehicle Table/VehicleTable";
 import classes from "./Vehicles.module.css";
+import VehicleAddSC from "./AddFromSC/VehicleAddSC";
 
 const Vehicles = (props) => {
   const {user} = useContext(AuthContext);
@@ -221,7 +222,7 @@ const Vehicles = (props) => {
   return (
     <div className={classes.grid}>
       <div className={classes.left}>
-        <GetToken />
+        <VehicleAddSC />
         <div>
           <ThemeProvider theme={darkTheme}>
             <VehicleTable

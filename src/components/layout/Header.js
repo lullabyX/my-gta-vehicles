@@ -9,10 +9,18 @@ import AuthContext from "../../store/auth-context";
 export default function Header(props) {
   const authCtx = React.useContext(AuthContext);
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+    <Box
+      sx={{
+        width: "100%",
+        position: "-webkit-sticky",
+        position: "sticky",
+        zIndex: "9999",
+        top: "0px",
+      }}
+    >
+      <AppBar sx={{position: 'static'}}>
+        <Toolbar sx={{display: 'flex', 'justifyContent': 'space-between'}}>
+          <Typography variant="h6" component="div">
             MY GTA VEHICLES
           </Typography>
           {authCtx.isSignedIn && (
