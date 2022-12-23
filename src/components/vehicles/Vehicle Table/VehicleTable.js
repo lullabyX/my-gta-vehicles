@@ -59,10 +59,10 @@ export default function VehicleTable(props) {
   return (
     <Card
       sx={{
-        height: 530,
-        maxWidth: 500,
+        height: "70vh",
+        maxWidth: 870,
         margin: "auto",
-        marginTop: "2%",
+        marginTop: "15px",
         backgroundColor: "#222",
         boxShadow: "16px black",
         padding: ".25rem",

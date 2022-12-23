@@ -1,6 +1,6 @@
 @font-face {
   font-family: "ff-tisa-sans-web-pro";
-  src: url("./fonts/TisaSansPro-Regular.woff") format("woff");
+  src: url("../public/assets/fonts/TisaSansPro-Regular.woff") format("woff");
 }
 
 div[role="tooltip"] {
