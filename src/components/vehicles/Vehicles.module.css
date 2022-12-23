@@ -1,0 +1,25 @@
+@media only screen and (min-width: 1300px) {
+  .grid {
+    display: grid;
+    grid-template-columns: auto max-content;
+    grid-template-rows: min-content 1fr;
+    padding-left: 10px;
+    padding-right: 10px;
+    column-gap: 10px;
+  }
+
+  .help {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+  }
+
+  .left {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+
+  .right {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+  }
+}

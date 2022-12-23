@@ -1,4 +1,4 @@
-import { Add } from "@mui/icons-material";
+import {Add} from "@mui/icons-material";
 import {
   Accordion,
   AccordionDetails,
@@ -6,19 +6,19 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { GridExpandMoreIcon } from "@mui/x-data-grid";
+import {ThemeProvider, createTheme} from "@mui/material/styles";
+import {GridExpandMoreIcon} from "@mui/x-data-grid";
 import axios from "axios";
-import { Fragment, useCallback, useContext, useEffect, useState } from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import AuthContext from "../../store/auth-context";
 import VehicleContext from "../../store/vehicle-context";
 import GetToken from "./AddFromSC/GetToken";
 import VehicleDetail from "./Detail/VehicleDetail";
 import VehicleModal from "./New Vehicle/VehicleModal";
 import VehicleTable from "./Vehicle Table/VehicleTable";
+import classes from "./Vehicles.module.css";
 
-const Vehicles = (props) =>
-{
+const Vehicles = (props) => {
   const {user} = useContext(AuthContext);
   const [openVehicleModal, setOpenVehicleModal] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -148,13 +148,13 @@ const Vehicles = (props) =>
   };
 
   const vehicleEditHandler = (vehicleDetails) => {
-    setEditDetails({ ...vehicleDetails });
+    setEditDetails({...vehicleDetails});
     setEdit(true);
     setOpenVehicleModal(true);
   };
 
   const addButton = (
-    <div style={{ textAlign: "center" }}>
+    <div style={{textAlign: "center"}}>
       <Button
         variant="contained"
         sx={{
@@ -197,19 +197,17 @@ const Vehicles = (props) =>
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography sx={{ fontWeight: "bold" }}>Help</Typography>
+          <Typography sx={{fontWeight: "bold"}}>Help</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <ul style={{ paddingLeft: "1rem" }}>
-            <li>You can sort/filter based on vehicle properties in the table</li>
+          <ul style={{paddingLeft: "1rem"}}>
             <li>
-              In the table, single click on a vehicle to see it's details
+              You can sort/filter based on vehicle properties in the table
             </li>
+            <li>In the table, single click on a vehicle to see it's details</li>
             <li>Double click on a vehicle to edit/delete it</li>
           </ul>
-          <p style={{ fontStyle: "italic" }}>
-            Data is gathered from gtacars.net
-          </p>
+          <p style={{fontStyle: "italic"}}>Data is gathered from gtacars.net</p>
         </AccordionDetails>
       </Accordion>
     </div>
@@ -221,32 +219,36 @@ const Vehicles = (props) =>
   };
 
   return (
-    <Fragment>
-      <GetToken />
-      <ThemeProvider theme={darkTheme}>
-        <VehicleTable
-          onEdit={vehicleEditHandler}
-          onRowSingleClick={detailShowHandler}
-          rows={vehiclesData}
+    <div className={classes.grid}>
+      <div className={classes.left}>
+        <GetToken />
+        <div>
+          <ThemeProvider theme={darkTheme}>
+            <VehicleTable
+              onEdit={vehicleEditHandler}
+              onRowSingleClick={detailShowHandler}
+              rows={vehiclesData}
+            />
+          </ThemeProvider>
+          {addButton}
+        </div>
+        <VehicleModal
+          open={openVehicleModal}
+          onClose={handleClose}
+          editMode={edit}
+          editDetails={editDetails}
+          onAddVehicle={addVehicleHandler}
+          onUpdateVehicle={updateVehicleHandler}
+          onDeleteVehicle={deleteVehicleHandler}
+          isLoading={isLoading}
+          isError={isError}
+          isSubmitted={isSubmitted}
+          isDeleted={isDeleted}
         />
-      </ThemeProvider>
-      {addButton}
-      <VehicleModal
-        open={openVehicleModal}
-        onClose={handleClose}
-        editMode={edit}
-        editDetails={editDetails}
-        onAddVehicle={addVehicleHandler}
-        onUpdateVehicle={updateVehicleHandler}
-        onDeleteVehicle={deleteVehicleHandler}
-        isLoading={isLoading}
-        isError={isError}
-        isSubmitted={isSubmitted}
-        isDeleted={isDeleted}
-      />
-      {detailContent}
-      {help}
-    </Fragment>
+      </div>
+      <div className={classes.right}>{detailContent}</div>
+      <div className={classes.help}>{help}</div>
+    </div>
   );
 };
 
