@@ -10,10 +10,19 @@ import {
 } from "@mui/material";
 import { GridExpandMoreIcon } from "@mui/x-data-grid";
 import useInput from "../../hooks/use-input";
-import {retrieveVehicles} from "./getVehiclesFromSC";
+import {retrieveVehicles} from "../../../utils/functions";
 
 const VehicleAddSC = (props) => {
   const tokenInput = useInput((value) => value !== "");
+
+  const addVehicles = async () =>
+  {
+    if(tokenInput.value.trim() === "") {
+      return;
+    }
+    const vehicles = await retrieveVehicles(tokenInput.value);
+    console.log(vehicles)
+  }
 
   return (
     <div
@@ -29,12 +38,12 @@ const VehicleAddSC = (props) => {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography sx={{ fontWeight: "bold" }}>
+          <Typography sx={{fontWeight: "bold"}}>
             Auto Add All Owned Vehicles
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <div style={{ marginBottom: "1rem" }}>
+          <div style={{marginBottom: "1rem"}}>
             <p>
               This is not the most elegant way of doing things but it's the
               quickest one to implement.
@@ -67,7 +76,7 @@ const VehicleAddSC = (props) => {
                 : ""
             }
           />
-          <div style={{ textAlign: "centre" }}>
+          <div style={{textAlign: "centre"}}>
             <Button
               variant="contained"
               sx={{
@@ -78,8 +87,8 @@ const VehicleAddSC = (props) => {
                   backgroundColor: "#452c63",
                 },
               }}
-              startIcon={<ArrowForwardIosRounded/>}
-              onClick={retrieveVehicles.bind(null, tokenInput.value)}
+              startIcon={<ArrowForwardIosRounded />}
+              onClick={() => addVehicles()}
             >
               Proceed
             </Button>

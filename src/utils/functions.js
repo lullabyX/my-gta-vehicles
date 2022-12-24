@@ -227,3 +227,18 @@ export const currencyFormat = (money) => {
 export const slashFormat = (str) => {
   return str.replace(/Slash/g, "/");
 };
+
+export const retrieveVehicles = async (token) => {
+  try {
+    const response = await fetch("/api/fromsc", {
+      method: "POST",
+      body: JSON.stringify({token}),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return {};
+  }
+};
+
