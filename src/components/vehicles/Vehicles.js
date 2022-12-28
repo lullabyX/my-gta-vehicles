@@ -17,6 +17,7 @@ import VehicleDetail from "./Detail/VehicleDetail";
 import VehicleModal from "./New Vehicle/VehicleModal";
 import VehicleTable from "./Vehicle Table/VehicleTable";
 import classes from "./Vehicles.module.css";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import VehicleAddSC from "./AddFromSC/VehicleAddSC";
 
 const Vehicles = (props) => {
@@ -190,6 +191,7 @@ const Vehicles = (props) => {
         maxWidth: 495,
         margin: "auto",
         marginTop: "1rem",
+        marginBottom: "1rem",
       }}
     >
       <Accordion>
@@ -209,6 +211,9 @@ const Vehicles = (props) => {
             <li>Double click on a vehicle to edit/delete it</li>
           </ul>
           <p style={{fontStyle: "italic"}}>Data is gathered from gtacars.net</p>
+          <a href="https://github.com/lullabyX/my-gta-vehicles">
+            <GitHubIcon sx={{color: "black"}} />
+          </a>
         </AccordionDetails>
       </Accordion>
     </div>
@@ -222,7 +227,7 @@ const Vehicles = (props) => {
   return (
     <div className={classes.grid}>
       <div className={classes.left}>
-        <VehicleAddSC />
+        {/* <VehicleAddSC onGetVehicles={getVehiclesHandler} /> */}
         <div>
           <ThemeProvider theme={darkTheme}>
             <VehicleTable

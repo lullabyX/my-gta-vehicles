@@ -216,7 +216,10 @@ export const dateFormat = (date) => {
   });
 };
 
-export const currencyFormat = (money) => {
+export const currencyFormat = (money) =>
+{
+  if (isNaN(+money))
+    return 'N/A'
   return (+money).toLocaleString("en-US", {
     style: "currency",
     currency: "USD",

@@ -1,4 +1,4 @@
-import { Add, ArrowForwardIosRounded } from "@mui/icons-material";
+import {ArrowForwardIosRounded} from "@mui/icons-material";
 import {
   Accordion,
   AccordionDetails,
@@ -8,21 +8,51 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { GridExpandMoreIcon } from "@mui/x-data-grid";
-import useInput from "../../hooks/use-input";
+import {GridExpandMoreIcon} from "@mui/x-data-grid";
+import {useContext} from "react";
+import AuthContext from "../../../store/auth-context";
+import VehicleContext from "../../../store/vehicle-context";
 import {retrieveVehicles} from "../../../utils/functions";
+import useInput from "../../hooks/use-input";
+import axios from "axios";
 
 const VehicleAddSC = (props) => {
   const tokenInput = useInput((value) => value !== "");
 
-  const addVehicles = async () =>
-  {
-    if(tokenInput.value.trim() === "") {
+  const {user} = useContext(AuthContext);
+
+  const addVehicleHandler = async (vehicleData) => {
+    try {
+      await axios(
+        `https://gta-owned-vehicles-default-rtdb.firebaseio.com/users/${
+          user.uid
+        }.json?auth=${await user.getIdToken()}`,
+        {
+          method: "POST",
+          data: vehicleData,
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addVehiclesFromSCHanlder = async () => {
+    if (tokenInput.value.trim() === "") {
       return;
     }
     const vehicles = await retrieveVehicles(tokenInput.value);
-    console.log(vehicles)
-  }
+    console.log(vehicles);
+    let total = 0;
+    for (const type in vehicles) {
+      // vehicles[type].Vehicles.forEach(async (vehicle) => {
+      //   const response = await axios.get()
+      // });
+      total += vehicles[type].TotalVehicles;
+    }
+    console.log(total);
+    // await props.onGetVehicles();
+  };
 
   return (
     <div
@@ -88,7 +118,7 @@ const VehicleAddSC = (props) => {
                 },
               }}
               startIcon={<ArrowForwardIosRounded />}
-              onClick={() => addVehicles()}
+              onClick={() => addVehiclesFromSCHanlder()}
             >
               Proceed
             </Button>

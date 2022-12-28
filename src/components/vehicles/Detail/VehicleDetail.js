@@ -33,6 +33,7 @@ const VehicleDetail = (props) => {
         maxWidth: 490,
         margin: "auto",
         marginTop: "10px",
+        marginBottom: "10px",
         boxShadow: "0px 2px 0px rgba(0, 0, 0, 0.25)",
         padding: ".25rem",
       }}

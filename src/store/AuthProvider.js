@@ -32,7 +32,7 @@ const uiConfig = {
 };
 
 const defaultState = {
-  isSignedIn: false,
+  isSignedIn: true,
   signout: () => {},
   FirebaseUI: (
     <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
@@ -48,6 +48,10 @@ const authReducer = (state, action) => {
       FirebaseUI: <></>,
       user: action.user,
     };
+  }
+  if (action.type === false)
+  {
+    return {...defaultState, isSignedIn: false}
   }
   return defaultState;
 };

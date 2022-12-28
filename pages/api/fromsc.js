@@ -50,7 +50,7 @@ const handler = async (req, res) => {
   try {
     for (let i = 0; i < 22; i++) {
       const res = await fetch(
-        `https://socialclub.rockstargames.com/gtav/VehiclesAjax?config=&slot=Freemode&category=${categories[i].Url}`,
+        `https://socialclub.rockstargames.com/gtav/VehiclesAjax?config=&nickname=&slot=Freemode&gamerHandle=&gamerTag=&category=${categories[i].Url}`,
         requestOptions
       );
       const response = await res.text();

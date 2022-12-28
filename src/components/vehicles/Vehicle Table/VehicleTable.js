@@ -9,7 +9,7 @@ import {
 } from "../../../utils/functions";
 
 const columns = [
-  { field: "fullname", headerName: "Name", width: 200 },
+  { field: "fullname", headerName: "Name", width: 210 },
   { field: "storageType", headerName: "Storage", width: 120 },
   {
     field: "class",
@@ -61,9 +61,9 @@ export default function VehicleTable(props) {
       sx={{
         height: "calc(100vh - 64px - 96px - 60px)",
         minHeight: "500px",
-        maxWidth: 870,
+        maxWidth: "895px",
         margin: "auto",
-        marginTop: "15px",
+        marginTop: "10px",
         backgroundColor: "#222",
         boxShadow: "16px black",
         padding: ".25rem",
